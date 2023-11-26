@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 fake = Faker()
 
 # Số lượng records
-num_benhnhan = 100000
 num_hosobenhnhan = 100000
 num_nhanvien = 1000
 num_phongkham = 20
@@ -31,44 +30,7 @@ current_date = datetime.now()
 def generate_data():
     start_index = 1
 
-    # Nhân viên
-    nhanvien_data = []
-    for i in range(start_index, start_index + num_nhanvien):
-        typeNV = random.choice(['NS', 'NV', 'QT'])
-        lastDigit = random.randrange(100, 1000)
-        firstDigit = random.randrange(10, 100)
-        pk = random.randrange(0,21)
-        nhanvien = {
-            'IDNHANVIEN': f'{typeNV}{i:06d}',
-            'TENNV': fake.name(),
-            'NAMSINH': fake.date_of_birth(),
-            'GIOITINH': random.choice(['Nam', 'Nữ']),
-            'SODIENTHOAI': f'0{firstDigit}{i:07d}{lastDigit}',
-            'MATKHAU': fake.password(length=10),
-            'LOAINV': typeNV,
-            'IDPHONGKHAM': f'P{pk}',
-        }
-        nhanvien_data.append(nhanvien)
-
-    # Bệnh nhân
-    benhnhan_data = []
-    for i in range(start_index, start_index + num_benhnhan):
-        lastDigit = random.randrange(100, 1000)
-        ngaysinhbn = fake.date_of_birth()
-        id_nhanvien_ns = random.choice([n['IDNHANVIEN'] for n in nhanvien_data if n['LOAINV'] == 'NS'])
-        benhnhan = {
-            'IDBENHNHAN': f'BN{i:06d}',
-            'TENBN': fake.name(),
-            'NAMSINH': ngaysinhbn,
-            'GIOITINH': random.choice(['Nam', 'Nữ']),
-            'SODIENTHOAI': f'0{i:06d}{lastDigit}',
-            'TUOI': datetime.now().year - ngaysinhbn.year,
-            'DIACHI': fake.address(),
-            'MATKHAU': fake.password(length=10),
-            'BACSIMD': id_nhanvien_ns,
-        }
-        benhnhan_data.append(benhnhan)
-
+    
     # Phòng khám
     phongkham_data = []
     for i in range(start_index, start_index + num_phongkham):
@@ -81,6 +43,77 @@ def generate_data():
             'LIENHE': f'0{firstDigit}{i:02d}{lastDigit}',
         }
         phongkham_data.append(phongkham)
+
+    # Nhân viên
+    nhanvien_data = []
+    for i in range(start_index, start_index + num_nhanvien):
+        typeNV = random.choice(['NS', 'NV', 'QT'])
+        lastDigit = random.randrange(100, 1000)
+        firstDigit = random.randrange(10, 100)
+        nhanvien = {
+            'IDNHANVIEN': f'{typeNV}{i:06d}',
+            'TENNV': fake.name(),
+            'NAMSINHNV': fake.date_of_birth(),
+            'GIOITINHNV': random.choice(['NAM', 'NỮ']),
+            'SODIENTHOAINV': f'0{firstDigit}{i:07d}{lastDigit}',
+            'MATKHAU': fake.password(length=10),
+            'LOAINV': typeNV,
+            'IDPHONGKHAM': random.choice(phongkham_data)['IDPHONGKHAM'],
+        }
+        nhanvien_data.append(nhanvien)
+    # Thuốc
+    thuoc_data = []
+    ten_thuoc_list = ["Paradol Extra", "Penicillin G Mekophar", "Ibufenol", "Cephalexin Capsules", "Metformin HCl",
+                    "Aspirin Plus", "Lisopram", "Simvatab", "Atorvozole", "Losartan Plus", "Levothyroxin Sodium",
+                    "Fluoxaril", "Azithrocin", "Prednixone", "Warfarix", "Clopidox", "Diazepro", "Albuterix",
+                    "Cefapro", "Doxycyclinol", "Hydrozide", "Gabapix", "Tramadex", "Pantoprazo", "Sertrax",
+                    "Monteplus", "Acetaminophex", "Ibuplex", "AmoxiCap"]
+
+    thanh_phan_list = ["Paracetamol, Caffeine", "Penicillin", "Ibuprofen, Paracetamol", "Cephalexin",
+                    "Metformin", "Aspirin, Caffeine", "Lisinopril, Citalopram", "Simvastatin", "Atorvastatin",
+                    "Losartan, Hydrochlorothiazide", "Levothyroxine", "Fluoxetine", "Azithromycin", "Prednisone",
+                    "Warfarin", "Clopidogrel", "Diazepam", "Albuterol", "Cephalexin", "Doxycycline",
+                    "Hydrochlorothiazide", "Gabapentin", "Tramadol", "Pantoprazole", "Sertraline", "Montelukast",
+                    "Acetaminophen", "Ibuprofen", "Amoxicillin"]
+
+    for i in range(len(ten_thuoc_list)):
+        thuoc = {
+            'IDTHUOC': f'DC{i+1:06d}',
+            'TENTHUOC': ten_thuoc_list[i],
+            'THANHPHAN': thanh_phan_list[i],
+            'DONVITINH': random.choice(['ml', 'viên', 'g', 'liều', 'ống']),
+            'GIATHUOC': fake.pyfloat(min_value=0, max_value=100, right_digits=2),
+        }
+        thuoc_data.append(thuoc)
+
+
+    # Bệnh nhân
+    hosobenhnhan_data = []
+    for i in range(start_index, start_index + num_hosobenhnhan):
+        lastDigit = random.randrange(100, 1000)
+        ngaysinhbn = fake.date_of_birth()
+        id_nhanvien_ns = random.choice([n['IDNHANVIEN'] for n in nhanvien_data if n['LOAINV'] == 'NS'])
+        tongtienhsbn = fake.pyfloat(min_value=100, max_value=10000, right_digits=2)
+        tienconlai = fake.pyfloat(min_value=0, max_value=tongtienhsbn, right_digits=2)
+        hosobenhnhan = {
+            'IDBENHNHAN': f'BN{i:06d}',
+            'TENBN': fake.name(),
+            'IDPHONGKHAM': random.choice(phongkham_data)['IDPHONGKHAM'],
+            'NAMSINHBN': ngaysinhbn,
+            'GIOITINHBN': random.choice(['NAM', 'NỮ']),
+            'TUOI': datetime.now().year - ngaysinhbn.year,
+            'SODIENTHOAIBN': f'0{i:06d}{lastDigit}',
+            'EMAIL': fake.email(),
+            'DIACHI': fake.address(),
+            'MATKHAU': fake.password(length=10),
+            'BACSIMD': id_nhanvien_ns,
+            'TTTONGQUAN': fake.sentence(),
+            'TINHTRANGDIUNG': fake.sentence(),
+            'THUOCCHONGCHIDINH': random.choice(thuoc_data)['TENTHUOC'],
+            'TONGTIEN': tongtienhsbn,
+            'DATHANHTOAN': round(tongtienhsbn - tienconlai,2),
+        }
+        hosobenhnhan_data.append(hosobenhnhan)
 
     # Danh Mục Điều Trị
     danhmucdieutri_data = []
@@ -114,12 +147,12 @@ def generate_data():
     # Kế Hoạch Điều Trị
     kehoachdieutri_data = []
     for i in range(start_index, start_index + num_kehoachdieutri):
-        benh_nhan = random.choice(benhnhan_data)
+        benh_nhan = random.choice(hosobenhnhan_data)
         kehoachdieutri = {
-            'IDDIEUTRI': f'KHDT{i:06d}',
-            'MOTA': fake.sentence(),
-            'TRANGTHAI': random.choice(['Kế hoạch', 'Đã hoàn thành', 'Đã hủy']),
-            'GHICHU': fake.sentence() if random.choice([True, False]) else None,
+            'IDDIEUTRI': f'KH{i:08d}',
+            'MOTAKHDT': fake.sentence(),
+            'TRANGTHAI': random.choice(['KẾ HOẠCH', 'ĐÃ HOÀN THÀNH', 'ĐÃ HỦY']),
+            'GHICHUKHDT': fake.sentence() if random.choice([True, False]) else None,
             'TONGGIA': fake.pyfloat(min_value=1, max_value=1000, right_digits=2),
 
             'BENHNHAN': benh_nhan['IDBENHNHAN'],
@@ -143,7 +176,7 @@ def generate_data():
 
             'TROKHAM': id_nhanvien_tk,
             'KHAMCHINH': id_nhanvien_kc,
-            'BNKHAMLE': random.choice(benhnhan_data)['IDBENHNHAN'],
+            'BNKHAMLE': random.choice(hosobenhnhan_data)['IDBENHNHAN'],
             'KEHOACHDT': random.choice(kehoachdieutri_data)['IDDIEUTRI'],
         }
         buoidieutri_data.append(buoidieutri)
@@ -201,32 +234,6 @@ def generate_data():
             }
         donthuoc_data.append(donthuoc)
 
-    # Thuốc
-    thuoc_data = []
-    ten_thuoc_list = ["Paradol Extra", "Penicillin G Mekophar", "Ibufenol", "Cephalexin Capsules", "Metformin HCl",
-                    "Aspirin Plus", "Lisopram", "Simvatab", "Atorvozole", "Losartan Plus", "Levothyroxin Sodium",
-                    "Fluoxaril", "Azithrocin", "Prednixone", "Warfarix", "Clopidox", "Diazepro", "Albuterix",
-                    "Cefapro", "Doxycyclinol", "Hydrozide", "Gabapix", "Tramadex", "Pantoprazo", "Sertrax",
-                    "Monteplus", "Acetaminophex", "Ibuplex", "AmoxiCap"]
-
-    thanh_phan_list = ["Paracetamol, Caffeine", "Penicillin", "Ibuprofen, Paracetamol", "Cephalexin",
-                    "Metformin", "Aspirin, Caffeine", "Lisinopril, Citalopram", "Simvastatin", "Atorvastatin",
-                    "Losartan, Hydrochlorothiazide", "Levothyroxine", "Fluoxetine", "Azithromycin", "Prednisone",
-                    "Warfarin", "Clopidogrel", "Diazepam", "Albuterol", "Cephalexin", "Doxycycline",
-                    "Hydrochlorothiazide", "Gabapentin", "Tramadol", "Pantoprazole", "Sertraline", "Montelukast",
-                    "Acetaminophen", "Ibuprofen", "Amoxicillin"]
-
-    for i in range(len(ten_thuoc_list)):
-        thuoc = {
-            'IDTHUOC': f'DC{i+1:04d}',
-            'TENTHUOC': ten_thuoc_list[i],
-            'THANHPHAN': thanh_phan_list[i],
-            'DONVITINH': random.choice(['ml', 'viên', 'g', 'liều', 'ống']),
-            'GIATHUOC': fake.pyfloat(min_value=0, max_value=100, right_digits=2),
-        }
-        thuoc_data.append(thuoc)
-
-
     # Chi Tiết Đơn Thuốc
     chitietdonthuoc_data = []
     for i in range(start_index, start_index + num_chitietdonthuoc):
@@ -251,7 +258,7 @@ def generate_data():
             'IDHOADON': f'HĐ{ngay_cap_hd.strftime("%Y%m%d")}{i:05d}',
             'TONGTIEN': tongtien,
             'TIENDATRA': tiendatra,
-            'LOAITHANHTOAN': random.choice(['Thanh toán online', 'Tiền mặt']),
+            'LOAITHANHTOAN': random.choice(['ONLINE', 'TIỀN MẶT']),
             'GHICHUHOADON': fake.sentence() if random.choice([True, False]) else None,
             'NGAYGIAODICH': ngay_cap_hd.strftime("%Y-%m-%d"),
 
@@ -314,33 +321,16 @@ def generate_data():
             
         }
         lichhen_data.append(lichhen)
-    # Hồ sơ bệnh nhân
-    hosobenhnhan_data = []
-    for i in range(start_index, start_index + num_hosobenhnhan):
-        
-        tongtienhsbn = fake.pyfloat(min_value=100, max_value=10000, right_digits=2)
-        tienconlai = fake.pyfloat(min_value=0, max_value=tongtienhsbn, right_digits=2)
-        hosobenhnhan = {
-            'IDHOSO': f'HSBN{i:06d}',
-            'TTTONGQUAN': fake.sentence(),
-            'TINHTRANGDIUNG': fake.sentence(),
-            'THUOCCHONGCHIDINH': random.choice(thuoc_data)['TENTHUOC'],
-            'TONGTIEN': tongtienhsbn,
-            'DATHANHTOAN': round(tongtienhsbn - tienconlai,2),
 
-            'IDBENHNHAN': f'BN{i:06d}',
-            
-        }
-        hosobenhnhan_data.append(hosobenhnhan)
-    return nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data, hosobenhnhan_data
+    return nhanvien_data, hosobenhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data
 
 # Lưu dữ liệu vào các file Excel
 import pandas as pd
 
-def save_to_excel(nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data, hosobenhnhan_data):
+def save_to_excel(nhanvien_data, hosobenhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data):
     # Create DataFrames
     nhanvien_df = pd.DataFrame(nhanvien_data)
-    benhnhan_df = pd.DataFrame(benhnhan_data)
+    hosobenhnhan_df = pd.DataFrame(hosobenhnhan_data)
     phongkham_df = pd.DataFrame(phongkham_data)
     danhmucdieutri_df = pd.DataFrame(danhmucdieutri_data)
     loaidieutri_df = pd.DataFrame(loaidieutri_data)
@@ -355,12 +345,12 @@ def save_to_excel(nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_d
     lichlamviec_df = pd.DataFrame(lichlamviec_data)
     calam_df = pd.DataFrame(calam_data)
     lichhen_df = pd.DataFrame(lichhen_data)
-    hosobenhnhan_df = pd.DataFrame(hosobenhnhan_data)
+
 
     # Save DataFrames to Excel with uppercase sheet names
     with pd.ExcelWriter('QuanLyPhongKham.xlsx', engine='openpyxl') as writer:
         nhanvien_df.to_excel(writer, sheet_name='NHANVIEN', index=False)
-        benhnhan_df.to_excel(writer, sheet_name='BENHNHAN', index=False)
+        hosobenhnhan_df.to_excel(writer, sheet_name='HOSOBENHNHAN', index=False)
         phongkham_df.to_excel(writer, sheet_name='PHONGKHAM', index=False)
         danhmucdieutri_df.to_excel(writer, sheet_name='DANHMUCDIEUTRI', index=False)
         loaidieutri_df.to_excel(writer, sheet_name='LOAIDIEUTRI', index=False)
@@ -375,10 +365,9 @@ def save_to_excel(nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_d
         lichlamviec_df.to_excel(writer, sheet_name='LICHLAMVIEC', index=False)
         calam_df.to_excel(writer, sheet_name='CALAM', index=False)
         lichhen_df.to_excel(writer, sheet_name='LICHHEN', index=False)
-        hosobenhnhan_df.to_excel(writer, sheet_name='HOSOBENHNHAN', index=False)
 
         
 
 # Tạo dữ liệu và lưu vào file Excel
-nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data, hosobenhnhan_data = generate_data()
-save_to_excel(nhanvien_data, benhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data, hosobenhnhan_data)
+nhanvien_data, hosobenhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data = generate_data()
+save_to_excel(nhanvien_data, hosobenhnhan_data, phongkham_data, danhmucdieutri_data, loaidieutri_data, kehoachdieutri_data, buoidieutri_data, chitietdieutri_data, chitietrangdieutri_data, donthuoc_data, thuoc_data, chitietdonthuoc_data, hoadon_data, calam_data, lichlamviec_data, lichhen_data)
