@@ -13,6 +13,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-
+const donthuoc = require('./route/donthuoc.route')
+app.use(donthuoc)
 
 app.listen(port, ()=>console.log(`Example app listening at htttp://localhost:${port}`))
