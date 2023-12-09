@@ -14,6 +14,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 const donthuoc = require('./route/donthuoc.route')
+const dieutri = require('./route/dieutri.route')
 app.use(donthuoc)
+app.use(dieutri)
 
 app.listen(port, ()=>console.log(`Example app listening at htttp://localhost:${port}`))
