@@ -1,4 +1,4 @@
-const controller = require('../controller/donthuoc.controller')
+const controller = require('../controller/dieutri.controller')
 const express = require('express')
 const route = express.Router()
 
