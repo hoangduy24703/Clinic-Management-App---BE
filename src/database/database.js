@@ -3,7 +3,7 @@ const sql = require ('mssql');
 const sqlConfig = {
     user: 'ADMIN',
     password: '123456',
-    database: 'QLPK',
+    database: 'QLPK_CSDL',
     server: 'localhost',
     pool: {
       max: 10,
