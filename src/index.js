@@ -16,9 +16,13 @@ app.use(express.json());
 const donthuoc = require('./route/donthuoc.route')
 const dieutri = require('./route/dieutri.route')
 const hosobenhnhan = require('./route/hosobenhnhan.route')
+const lichhen = require('./route/lichhen.route')
+const lichlamviec = require('./route/lichlamviec.route')
 
 app.use(donthuoc)
 app.use(dieutri)
 app.use(hosobenhnhan)
+app.use(lichhen)
+app.use(lichlamviec)
 
 app.listen(port, ()=>console.log(`Example app listening at htttp://localhost:${port}`))
