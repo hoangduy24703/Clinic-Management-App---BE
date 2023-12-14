@@ -52,9 +52,9 @@ async function getListBDTbyDate(req,res){
     let request = new sql.Request()
     // request.stream = true;
 
-    request.input('DATEA', sql.Date, dateA)
-            .input('DATEB',sql.Date, dateB)
-    let result = await request.execute('LAYBUOIDT_NGAY')
+    request.input('DATEA', sql.Char, dateA)
+            .input('DATEB',sql.Char, dateB)
+    let result = await request.execute('LAYBUOIDT_NGAY',[], {resultSet:true})
     .catch(
         err=>{
             console.log(err)
@@ -83,7 +83,10 @@ async function getListBDTbyDate(req,res){
 async function getKeHoach(req,res){
     let id = req.params.id
     let request = new sql.Request()
-    let result = await request.query('EXEC ')
+    // request.stream = true;
+    // console.log(id)
+    request.input('IDDIEUTRI', sql.Char,id )
+    let result = await request.execute('XEMCHITIETKH')
     .catch(
         err=>{
             console.log(err)
@@ -101,14 +104,17 @@ async function getKeHoach(req,res){
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listBDT: result.recordset
+            kehoach: result.recordsets[0],
+            listBDT: result.recordsets[1],
         }
     })
 }
 
 async function getBDT(req,res){
     let id = req.params.id
-    let result = await request.query('EXEC XEMCHITIETBDT "BDT0000001"')
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    let result = await request.execute('XEMCHITIETBDT')
     .catch(
         err=>{
             console.log(err)
@@ -122,6 +128,21 @@ async function getBDT(req,res){
     )
     let tongquan = result.recordsets[0]
     let chitiet = result.recordsets[1]
+    let chitietrang = result.recordsets[2]
+    let rangdieutri;
+    for (let ldt  in chitiet) {
+        rangdieutri = []
+        for (let x in chitietrang){
+            if (chitietrang[x].MADIEUTRI == chitiet[ldt].MADIEUTRI){
+                let temp = {
+                    TENRANG: chitietrang[x].TENRANG,
+                    MATDIEUTRI: chitietrang[x].MATDIEUTRI,
+                }
+                rangdieutri.push(temp)
+            }
+        }
+        chitiet[ldt].RANGDIEUTRI = rangdieutri
+    }
     //console.log(result.recordsets[0])
     //console.log(result.recordsets[1])
     return res.json({
@@ -136,7 +157,24 @@ async function getBDT(req,res){
 }
 
 async function addBDT(req,res){
-    let result = await request.query('EXEC ')
+    let { IDDIEUTRI, 
+        MOTAKHDT,
+        TRANGTHAI,
+        GHICHUKHDT,
+        TONGGIA,
+        BENHNHAN,
+        BSPHUTRACH} = req.body.tongquan
+
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
+    .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
+    .input('TRANGTHAI', sql.NChar, TRANGTHAI)
+    .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
+    .input('TONGGIA', sql.Float, TONGGIA)
+    .input('BENHNHAN', sql.Char, BENHNHAN)
+    .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
+    let result = await request.execute('XEMCHITIETBDT')
     .catch(
         err=>{
             console.log(err)
@@ -160,10 +198,24 @@ async function addBDT(req,res){
 }
 
 async function addKeHoach(req,res){
-
-
-
-    let result = await request.query('EXEC ')
+    let { IDDIEUTRI, 
+        MOTAKHDT,
+        TRANGTHAI,
+        GHICHUKHDT,
+        TONGGIA,
+        BENHNHAN,
+        BSPHUTRACH} = req.body
+    
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
+    .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
+    .input('TRANGTHAI', sql.NChar, TRANGTHAI)
+    .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
+    .input('TONGGIA', sql.Float, TONGGIA)
+    .input('BENHNHAN', sql.Char, BENHNHAN)
+    .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
+    let result = await request.execute('THEMKEHOACH')
     .catch(
         err=>{
             console.log(err)
@@ -175,14 +227,13 @@ async function addKeHoach(req,res){
             })
         }
     )
+
     console.log(result)
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
-        data: {
-            listBDT: result.recordset
-        }
+        data: ''
     })
 
 }

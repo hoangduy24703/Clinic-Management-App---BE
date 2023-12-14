@@ -14,8 +14,9 @@ const sqlConfig = {
       requestTimeout: 150000,
       encrypt: true, // for azure
       trustServerCertificate: true // change to true for local dev / self-signed certs
-    }
-    }
+    },
+    requestTimeout: 150000,
+}
 
 async function connectToSQL(){
     await sql.connect(sqlConfig)
