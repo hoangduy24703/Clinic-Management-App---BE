@@ -24,10 +24,11 @@ async function getAllDonThuoc(req,res){
     })
 }
 
-async function getDonThuoc(req,res){
-    let id = req.params.id
-
-    let result = await database.returnDonThuoc(id)
+async function getDonThuoc(req,res){       //da check
+    // console.log ("cos chay")
+    let idbenhnhan = req.params.id
+    // console.log(idbenhnhan)
+    let result = await database.returnDonThuoc(idbenhnhan)
     .catch(
         err=>{
             console.log(err)
@@ -50,7 +51,7 @@ async function getDonThuoc(req,res){
     })
 }
 
-async function getChiTietDonThuoc(req,res){
+async function getChiTietDonThuoc(req,res){          //da check
     let id = req.params.id
 
     let result = await database.returnChiTietDonThuoc(id)
@@ -123,7 +124,7 @@ async function addLoaiThuoc(req,res){
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            
+            isSuccess: result
         }
     })
 }
@@ -149,32 +150,56 @@ async function updateLoaiThuoc(req,res){
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            
+            isSuccess: result
         }
     })
 }
 async function addDonThuoc(req,res){
     // let id = req.params.id
-    let {iddonthuoc, ngaycap, idbuoidieutri} = req.body
+    let {iddonthuoc, ngaycap, idbuoidieutri} = req.body.donthuoc 
+    let chitietdonthuoc = req.body.chitietdonthuoc
     let result = await database.returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)
     .catch(
         err=>{
             console.log(err)
-            return res.json({
-                isSuccess: false,
-                message: 'request Failure',
-                status: res.statusCode,
-                data: ''
-            })
         }
     )
     // console.log(result)
+    
+
+    if (result == true)
+    {
+        for (let chitiet in chitietdonthuoc)
+        {
+
+            let temp = await database.returnAddChiTietDonThuoc(chitiet.idthuoc, iddonthuoc, chitiet.soluong)
+            .catch(
+                err=>{
+                    console.log(err)
+                }
+            )
+            if (temp ==false)
+            {
+                break
+            }
+        }
+    }
+    if (temp==false)
+    {
+        return res.json({
+            isSuccess: false,
+            message: 'request Failure',
+            status: res.statusCode,
+            data: ''
+        })
+     
+    }
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            
+            isSuccess: temp
         }
     })
 }
@@ -267,4 +292,5 @@ module.exports={getAllDonThuoc,
     deleteDonThuoc,
     addChiTietDonThuoc,
     getLoaiThuoc,
-    getDonThuocNgay}
+    getDonThuocNgay
+}

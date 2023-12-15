@@ -1,6 +1,6 @@
 const sql = require ('mssql');
 
-async function returnChiTietHoaDon(idhoadon)
+async function returnChiTietHoaDon(idhoadon)     //DA LAM
 {
     const request = new sql.Request()
    
@@ -9,7 +9,7 @@ async function returnChiTietHoaDon(idhoadon)
     return listhoadon
 }
 
-async function returnHoaDon(id)
+async function returnHoaDon(id)                     //DA LAM
 {
     const request = new sql.Request()
     request.input('IDBENHNHAN', id)
