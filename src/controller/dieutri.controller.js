@@ -34,6 +34,7 @@ async function getListBDTbyID(req,res){
     })
 }
 
+
 async function getListBDTbyDate(req,res){
     let dateA = req.params.dateA
     let dateB = req.params.dateB
