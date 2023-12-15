@@ -1,6 +1,5 @@
 const sql = require ('mssql');
-const request = new sql.Request()
-
+const model = require('../model/dieutri.model')
 
 function checkId(id){
     if (id == null) return false
@@ -9,8 +8,10 @@ function checkId(id){
 
 async function getListBDTbyID(req,res){
     let id = req.params.id
-
-    let result = await request.query('EXEC ')
+    let request = new sql.Request()
+    request.input('MABENHNHAN', sql.Char, id);
+    
+    let result = await request.execute('LAYBUOIDT_BN')
     .catch(
         err=>{
             console.log(err)
@@ -28,19 +29,17 @@ async function getListBDTbyID(req,res){
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listBDT: result.recordset
+            listBDT: result.recordsets[0]
         }
     })
 }
 
+
 async function getListBDTbyDate(req,res){
-    let dateA = req.dateA
-    let dateB = req.dateB
-    if (dateA > dateB){
-        let temp = dateA
-        dateA = dateB
-        dateB = temp
-    }
+    let dateA = req.params.dateA
+    let dateB = req.params.dateB
+    console.log(dateA)
+    console.log(dateB)
     if (dateA == null || dateB == null){
         return res.json({
             isSuccess: false,
@@ -50,7 +49,12 @@ async function getListBDTbyDate(req,res){
         })
     }
 
-    let result = await request.query('EXEC ')
+    let request = new sql.Request()
+    // request.stream = true;
+
+    request.input('DATEA', sql.Char, dateA)
+            .input('DATEB',sql.Char, dateB)
+    let result = await request.execute('LAYBUOIDT_NGAY',[], {resultSet:true})
     .catch(
         err=>{
             console.log(err)
@@ -62,6 +66,9 @@ async function getListBDTbyDate(req,res){
             })
         }
     )
+
+    // let result = await model.te(dateA,dateB)
+
     console.log(result)
     return res.json({
         isSuccess: true,
@@ -75,8 +82,11 @@ async function getListBDTbyDate(req,res){
 
 async function getKeHoach(req,res){
     let id = req.params.id
-
-    let result = await request.query('EXEC ')
+    let request = new sql.Request()
+    // request.stream = true;
+    // console.log(id)
+    request.input('IDDIEUTRI', sql.Char,id )
+    let result = await request.execute('XEMCHITIETKH')
     .catch(
         err=>{
             console.log(err)
@@ -94,14 +104,17 @@ async function getKeHoach(req,res){
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listBDT: result.recordset
+            kehoach: result.recordsets[0],
+            listBDT: result.recordsets[1],
         }
     })
 }
 
 async function getBDT(req,res){
     let id = req.params.id
-    let result = await request.query('EXEC ')
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    let result = await request.execute('XEMCHITIETBDT')
     .catch(
         err=>{
             console.log(err)
@@ -113,19 +126,55 @@ async function getBDT(req,res){
             })
         }
     )
-    console.log(result)
+    let tongquan = result.recordsets[0]
+    let chitiet = result.recordsets[1]
+    let chitietrang = result.recordsets[2]
+    let rangdieutri;
+    for (let ldt  in chitiet) {
+        rangdieutri = []
+        for (let x in chitietrang){
+            if (chitietrang[x].MADIEUTRI == chitiet[ldt].MADIEUTRI){
+                let temp = {
+                    TENRANG: chitietrang[x].TENRANG,
+                    MATDIEUTRI: chitietrang[x].MATDIEUTRI,
+                }
+                rangdieutri.push(temp)
+            }
+        }
+        chitiet[ldt].RANGDIEUTRI = rangdieutri
+    }
+    //console.log(result.recordsets[0])
+    //console.log(result.recordsets[1])
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listBDT: result.recordset
+            tongquan,
+            chitiet
         }
     })
 }
 
 async function addBDT(req,res){
-    let result = await request.query('EXEC ')
+    let { IDDIEUTRI, 
+        MOTAKHDT,
+        TRANGTHAI,
+        GHICHUKHDT,
+        TONGGIA,
+        BENHNHAN,
+        BSPHUTRACH} = req.body.tongquan
+
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
+    .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
+    .input('TRANGTHAI', sql.NChar, TRANGTHAI)
+    .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
+    .input('TONGGIA', sql.Float, TONGGIA)
+    .input('BENHNHAN', sql.Char, BENHNHAN)
+    .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
+    let result = await request.execute('XEMCHITIETBDT')
     .catch(
         err=>{
             console.log(err)
@@ -149,10 +198,24 @@ async function addBDT(req,res){
 }
 
 async function addKeHoach(req,res){
-
-
-
-    let result = await request.query('EXEC ')
+    let { IDDIEUTRI, 
+        MOTAKHDT,
+        TRANGTHAI,
+        GHICHUKHDT,
+        TONGGIA,
+        BENHNHAN,
+        BSPHUTRACH} = req.body
+    
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char,id )
+    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
+    .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
+    .input('TRANGTHAI', sql.NChar, TRANGTHAI)
+    .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
+    .input('TONGGIA', sql.Float, TONGGIA)
+    .input('BENHNHAN', sql.Char, BENHNHAN)
+    .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
+    let result = await request.execute('THEMKEHOACH')
     .catch(
         err=>{
             console.log(err)
@@ -164,14 +227,13 @@ async function addKeHoach(req,res){
             })
         }
     )
+
     console.log(result)
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
-        data: {
-            listBDT: result.recordset
-        }
+        data: ''
     })
 
 }
