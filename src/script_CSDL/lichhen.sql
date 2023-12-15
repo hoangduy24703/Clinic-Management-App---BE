@@ -42,6 +42,7 @@ RETURN 0
 GO
 EXEC SP_XEM_LICH_HEN_PK 'P01','2023-12-09'
 
+GO
 -- 3. Xem danh sách lịch hẹn của 1 nha sĩ theo ngày
 CREATE OR ALTER PROC SP_XEM_LICH_HEN_NS
 	@ID_NHASI CHAR(8),
