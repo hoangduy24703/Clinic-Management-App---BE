@@ -1,10 +1,10 @@
 const sql = require ('mssql');
-const request = new sql.Request()
 
-async function returnChiTietHoSoBenhNhan(data) {
+async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
     try {
-        request.input('IDNguoiDung', sql.Char, data.IDBENHNHAN);
-        return await sql.execute('xemchitiethosobenhnhan');
+        const request = new sql.Request();
+        request.input('IDBENHNHAN', sql.Char, IDBENHNHAN);
+        return await request.execute('xemchitiethosobenhnhan');
     }
     catch (error) {
         console.log(error);
@@ -13,6 +13,7 @@ async function returnChiTietHoSoBenhNhan(data) {
 
 async function returnCapNhatHoSoBenhNhan(data) {
     try {
+        const request = new Request()
         request.input('IDBENHNHAN', sql.Char, data.IDBENHNHAN);
         request.input('TENBN', sql.Char, data.TENBN);
         request.input('NAMSINH', sql.Date, data.DATE);
@@ -35,6 +36,7 @@ async function returnCapNhatHoSoBenhNhan(data) {
 
 async function returnDangNhap(data) {
     try {
+        const request = new Request()
         request.input('SDT', sql.Char, data.SDT);
         request.input('MATKHAU', sql.VarChar, data.MATKHAU);
         return await request.execute('dangnhap');
@@ -46,6 +48,7 @@ async function returnDangNhap(data) {
 
 async function returnDangKy(data) {
     try {
+        const request = new Request();
         request.input('SDT', sql.Char, data.SDT);
         request.input('MATKHAU', sql.VarChar, data.MATKHAU);
         return await request.execute('dangky');
@@ -55,4 +58,15 @@ async function returnDangKy(data) {
     }
 }
 
-module.exports={returnChiTietHoSoBenhNhan, returnCapNhatHoSoBenhNhan, returnDangKy, returnDangNhap}
+async function returnDanhSachBenhNhan(TENBN) {
+    try {
+        const request = new sql.Request();
+        request.input("TEN", sql.NVarChar, TENBN);
+        return await request.execute('xemhosobenhnhanquaten');
+    }
+    catch(err) {
+
+    }
+}
+
+module.exports={returnChiTietHoSoBenhNhan, returnCapNhatHoSoBenhNhan, returnDangKy, returnDangNhap, returnDanhSachBenhNhan}

@@ -1,7 +1,8 @@
 const database = require('../model/hosobenhnhan.model')
 
-async function getChiTietHoSoBenhNhan(req,res){
-    let result = await database.returnChiTietHoSoBenhNhan()
+async function  getChiTietHoSoBenhNhan(req,res) {
+    const IDBENHNHAN = req.params.id;
+    let result = await database.returnChiTietHoSoBenhNhan(IDBENHNHAN)
     .catch(
         err=>{
             console.log(err)
@@ -18,7 +19,7 @@ async function getChiTietHoSoBenhNhan(req,res){
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
-        data: result
+        data: result.recordsets[0]
     })
 }
 
@@ -89,4 +90,27 @@ async function postDangKy(req, res) {
         })
     }
 }
-module.exports={getChiTietHoSoBenhNhan, postCapNhatHoSoBenhNhan, getDangNhap, postDangKy}
+
+async function postDanhSachBenhNhan(req, res) {
+    try {
+        const TENBN = req.body.TENBN;
+        let result = await database.returnDanhSachBenhNhan(TENBN);
+
+        return res.json({
+            isSuccess: true,
+            message: 'POST successfully',
+            status: res.statusCode,
+            data: result.recordsets[0]
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Failed to POST',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+module.exports={getChiTietHoSoBenhNhan, postCapNhatHoSoBenhNhan, getDangNhap, postDangKy, postDanhSachBenhNhan}
