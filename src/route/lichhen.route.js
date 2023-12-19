@@ -6,5 +6,8 @@ route.post('/lichhen/searchLHBN', controller.postLichHenIDBN);
 route.post('/lichhen/searchLHNS', controller.postLichHenIDNS);
 route.post('/lichhen/searchLHPK', controller.postLichHenIDPK);
 route.post('/lichhen/searchD2D', controller.postLichHenDayToDay);
+route.post('/lichhen/createLH', controller.postThemLichHen);
+route.post('/lichhen/deleteLH', controller.postXoaLichHen);
+
 
 module.exports = route;

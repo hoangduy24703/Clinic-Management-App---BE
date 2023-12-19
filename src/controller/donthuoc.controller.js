@@ -164,15 +164,17 @@ async function addDonThuoc(req,res){
             console.log(err)
         }
     )
-    // console.log(result)
-    
 
+    console.log(result)
+    let temp
     if (result == true)
     {
+        // console.log(chitietdonthuoc)
         for (let chitiet in chitietdonthuoc)
         {
 
-            let temp = await database.returnAddChiTietDonThuoc(chitiet.idthuoc, iddonthuoc, chitiet.soluong)
+            console.log(chitietdonthuoc[chitiet].idthuoc, iddonthuoc, chitietdonthuoc[chitiet].soluong)
+            temp = await database.returnAddChiTietDonThuoc(chitietdonthuoc[chitiet].idthuoc, iddonthuoc, chitietdonthuoc[chitiet].soluong)
             .catch(
                 err=>{
                     console.log(err)
@@ -180,6 +182,7 @@ async function addDonThuoc(req,res){
             )
             if (temp ==false)
             {
+                console.log(temp)
                 break
             }
         }

@@ -74,7 +74,7 @@ async function postLichHenDayToDay(req,res){
     try {
         const { NGAY_A, NGAY_B } = req.body;
         let result = await database.returnLichHenDayToDay(NGAY_A, NGAY_B);
-        console.log(result.recordsets[0].length)
+        
         return res.json({
             isSuccess: true,
             message: 'Request Successfully',
@@ -93,4 +93,50 @@ async function postLichHenDayToDay(req,res){
     }
 }
 
-module.exports = {postLichHenIDBN, postLichHenIDNS, postLichHenIDPK, postLichHenDayToDay}
+async function postThemLichHen(req,res){
+    try {
+        const { NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM} = req.body;
+        let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM);
+        
+        return res.json({
+            isSuccess: true,
+            message: 'Request Successfully',
+            status: res.statusCode,
+            data: result.recordsets[0]
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+
+async function postXoaLichHen(req,res){
+    try {
+        const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN} = req.body;
+        let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
+        
+        return res.json({
+            isSuccess: true,
+            message: 'Request Successfully',
+            status: res.statusCode,
+            data: result.recordsets[0]
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+
+module.exports = {postLichHenIDBN, postLichHenIDNS, postLichHenIDPK, postLichHenDayToDay, postThemLichHen, postXoaLichHen}

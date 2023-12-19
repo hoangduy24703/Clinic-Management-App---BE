@@ -156,42 +156,100 @@ async function getBDT(req,res){
 }
 
 async function addBDT(req,res){
-    let { IDDIEUTRI, 
-        MOTAKHDT,
-        TRANGTHAI,
-        GHICHUKHDT,
-        TONGGIA,
-        BENHNHAN,
-        BSPHUTRACH} = req.body.tongquan
+    let { MABENHNHAN,
+        IDBUOIDIEUTRI,
+        MOTA,
+        GHICHU,
+        NGAY,
+        KHAMCHINH,
+        TROKHAM,
+        KEHOACH} = req.body.tongquan
+    
+    let buoidieutri = req.body.chitietdieutri
 
     let request = new sql.Request()
-    request.input('IDBUOIDIEUTRI', sql.Char,id )
-    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
-    .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
-    .input('TRANGTHAI', sql.NChar, TRANGTHAI)
-    .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
-    .input('TONGGIA', sql.Float, TONGGIA)
-    .input('BENHNHAN', sql.Char, BENHNHAN)
-    .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
-    let result = await request.execute('XEMCHITIETBDT')
+    request.input('MABENHNHAN', MABENHNHAN)
+    .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
+    .input('MOTA',sql.NVarChar, MOTA)
+    .input('GHICHU', sql.NVarChar, GHICHU)
+    .input('NGAY', sql.Date, NGAY)
+    .input('KHAMCHINH', KHAMCHINH)
+    .input('TROKHAM', TROKHAM)
+    .input('KEHOACH', KEHOACH)
+
+    let result = await request.execute('THEMBUOIDT')
     .catch(
         err=>{
             console.log(err)
-            return res.json({
-                isSuccess: false,
-                message: 'request Failure',
-                status: res.statusCode,
-                data: ''
-            })
         }
     )
-    console.log(result)
+    console.log(result.returnValue)
+    let isSuccess = true
+    if (result.returnValue ==0)
+    {
+        for (let chitiet in buoidieutri)
+        {
+            // let request2 = new sql.Request()
+            // request2.parameters.
+            // console.log(buoidieutri[chitiet])
+            // request2.input('MADIEUTRI',sql.Char,buoidieutri[chitiet].MADIEUTRI)
+            // request2.input('IDBUOIDIEUTRI',sql.Char, buoidieutri[chitiet].IDBUOIDIEUTRI)
+            // request2.parameters.console
+            // console.log(buoidieutri[chitiet].MADIEUTRI,buoidieutri[chitiet].IDBUOIDIEUTRI)
+            let temp = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI, buoidieutri[chitiet].IDBUOIDIEUTRI)
+            .catch(
+                err=>{
+                    console.log(err)
+                }
+            )
+            // console.log(temp)
+            if (temp == true)
+            {
+            //     let request3 = new sql.Request()
+                let rangdt = buoidieutri[chitiet].rangdt
+                for (let chitietrang in rangdt)
+                {
+                    let temp2 = await model.returnAddChiTietDT(rangdt[chitietrang].MADIEUTRI,
+                                                                rangdt[chitietrang].IDBUOIDIEUTRI,
+                                                                rangdt[chitiet].TENRANG,
+                                                                rangdt[chitiet].MATDIEUTRI)
+            //         request3.input('MADIEUTRI', rangdt[chitietrang].MADIEUTRI)
+            //         .input('IDBUOIDIEUTRI', rangdt[chitietrang].IDBUOIDIEUTRI)
+            //         .input('TENRANG',sql.NChar, rangdt[chitiet].TENRANG)
+            //         .input('MATDIEUTRI', rangdt[chitiet].MATDIEUTRI)
+            //         let temp2 = await request3.execute('THEMRANGDT')
+                    if (temp2 == false)
+                    {
+                        isSuccess = false
+                        break
+                    }
+                }
+    
+            }
+            else 
+            {
+                isSuccess = false
+                break
+            }
+
+        }
+    }
+    else isSuccess = false
+    if (isSuccess == false)
+    {
+        return res.json({
+            isSuccess: false,
+            message: 'request Failure',
+            status: res.statusCode,
+            data: ''
+        })
+    }
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listBDT: result.recordset
+            isSuccess: isSuccess
         }
     })
 }

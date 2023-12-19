@@ -106,8 +106,9 @@ async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //
     request.input('IDTHUOC', idthuoc)
     .input('IDDONTHUOC', iddonthuoc)
     .input('SOLUONG', soluong)
-
+    
     const isSuccess = await request.execute(`SP_THEMCHITIETDONTHUOC`)
+    console.log(isSuccess)
     if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
     {
         
