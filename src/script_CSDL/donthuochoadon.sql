@@ -373,7 +373,7 @@ BEGIN TRAN
 COMMIT TRAN
 GO
 
---exec sp_xemdanhsachhoadonbn 'BN010554'
+exec sp_xemdanhsachhoadonbn 'BN010554'
 
 CREATE OR ALTER PROC SP_XEMDANHSACHHOADONTHEONGAY
 	@NGAY DATE

@@ -12,8 +12,8 @@ EXEC sp_recompile 'timhosobenhnhanquaten'
 DROP INDEX LICHHEN_NGAYHEN
 ON LICHHEN;
 
-DROP INDEX HS_TEN
-ON HOSOBENHNHAN;
+DROP INDEX HD_BN
+ON hoadon;
 
 ---------------------------------------------------TẠO INDEX
 --LỊCH HẸN
