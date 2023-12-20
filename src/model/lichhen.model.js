@@ -48,4 +48,36 @@ async function returnLichHenDayToDay(NGAY_A, NGAY_B) {
         console.log(error);
     }
 }
-module.exports={returnLichHenIDBN, returnLichHenIDNS, returnLichHenIDPK, returnLichHenDayToDay};
+
+async function returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM) {
+    try {
+        const request = new sql.Request();
+        request.input('NGAYHEN', sql.Date, NGAYHEN);
+        request.input('THOIGIANHEN', sql.Time, THOIGIANHEN);
+        request.input('TINHTRANG', sql.NChar, TINHTRANG );
+        request.input('PHONG', sql.Char, PHONG );
+        request.input('GHICHU', sql.NVarChar, GHICHU );
+        request.input('BACSI', sql.Char, BACSI );
+        request.input('BENHNHAN', sql.Char, BENHNHAN );
+        request.input('TROKHAM', sql.Char, TROKHAM );
+        return await request.execute('SP_THEM_LICH_HEN');
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+async function returnXoaLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN) {
+    try {
+        const request = new sql.Request();
+        request.input('NGAYHEN', sql.Date, NGAYHEN);
+        request.input('THOIGIANHEN', sql.Time, THOIGIANHEN);
+        request.input('BACSI', sql.Char, BACSI );
+        request.input('BENHNHAN', sql.Char, BENHNHAN );
+        return await request.execute('SP_XOA_LICH_HEN');
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+module.exports={returnLichHenIDBN, returnLichHenIDNS, returnLichHenIDPK, returnLichHenDayToDay, returnThemLichHen, returnXoaLichHen};

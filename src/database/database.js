@@ -30,3 +30,5 @@ async function connectToSQL(){
 }
 connectToSQL();
 module.exports = {connectToSQL}
+
+
