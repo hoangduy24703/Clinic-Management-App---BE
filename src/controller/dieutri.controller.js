@@ -110,7 +110,7 @@ async function getKeHoach(req,res){
     })
 }
 
-async function getBDT(req,res){
+async function getBDT(req,res) {
     let id = req.params.id
     let request = new sql.Request()
     request.input('IDBUOIDIEUTRI', sql.Char,id )

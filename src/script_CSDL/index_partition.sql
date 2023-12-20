@@ -9,8 +9,8 @@ SELECT * FROM sys.dm_db_missing_index_details
 EXEC sp_recompile 'LAYBUOIDT_BN'
 
 --XÓA INDEX
-DROP INDEX LICHHEN_NGAYHEN
-ON LICHHEN;
+--DROP INDEX LICHHEN_NGAYHEN
+--ON LICHHEN;
 
 ---------------------------------------------------TẠO INDEX
 --LỊCH HẸN
