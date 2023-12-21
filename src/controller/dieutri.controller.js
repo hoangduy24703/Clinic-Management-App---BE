@@ -5,7 +5,6 @@ function checkId(id){
     if (id == null) return false
     return true
 }
-
 async function getListBDTbyID(req,res){
     let id = req.params.id
     let request = new sql.Request()
@@ -110,7 +109,7 @@ async function getKeHoach(req,res){
     })
 }
 
-async function getBDT(req,res){
+async function getBDT(req,res) {
     let id = req.params.id
     let request = new sql.Request()
     request.input('IDBUOIDIEUTRI', sql.Char,id )
@@ -260,7 +259,6 @@ async function addKeHoach(req,res){
         MOTAKHDT,
         TRANGTHAI,
         GHICHUKHDT,
-        TONGGIA,
         BENHNHAN,
         BSPHUTRACH} = req.body
     
@@ -296,6 +294,60 @@ async function addKeHoach(req,res){
 
 }
 
+async function getListKHbyID(req,res){
+    let id = req.params.id
+    let request = new sql.Request()
+    request.input('MABENHNHAN', sql.Char, id);
+    
+    let result = await request.execute('LAYKEHOACHDT_BN')
+    .catch(
+        err=>{
+            console.log(err)
+            return res.json({
+                isSuccess: false,
+                message: 'request Failure',
+                status: res.statusCode,
+                data: ''
+            })
+        }
+    )
+    console.log(result)
+    return res.json({
+        isSuccess: true,
+        message: 'request Successfully',
+        status: res.statusCode,
+        data: {
+            listBDT: result.recordsets[0]
+        }
+    })
+}
+
+async function getDSBDT(req,res){
+    let request = new sql.Request()
+    
+    let result = await request.execute('LAYBUOIDT_BN')
+    .catch(
+        err=>{
+            console.log(err)
+            return res.json({
+                isSuccess: false,
+                message: 'request Failure',
+                status: res.statusCode,
+                data: ''
+            })
+        }
+    )
+    console.log(result)
+    return res.json({
+        isSuccess: true,
+        message: 'request Successfully',
+        status: res.statusCode,
+        data: {
+            listBDT: result.recordsets[0]
+        }
+    })
+}
+
 module.exports = {
     getListBDTbyID,
     getListBDTbyDate,
@@ -304,4 +356,5 @@ module.exports = {
     getBDT,
     addBDT,
     addKeHoach,
+    getListKHbyID,
 }

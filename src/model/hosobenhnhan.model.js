@@ -34,7 +34,7 @@ async function returnCapNhatHoSoBenhNhan(data) {
     }
 }
 
-async function returnDangNhap(data) {
+async function returnDangNhap(SDT, MATKHAU) {
     try {
         const request = new Request()
         request.input('SDT', sql.Char, data.SDT);
