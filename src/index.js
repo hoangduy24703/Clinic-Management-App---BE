@@ -25,5 +25,6 @@ app.use(dieutri)
 app.use(hosobenhnhan)
 app.use(lichhen)
 app.use(lichlamviec)
+app.use(hoadon)
 
 app.listen(port, ()=>console.log(`Example app listening at htttp://localhost:${port}`))
