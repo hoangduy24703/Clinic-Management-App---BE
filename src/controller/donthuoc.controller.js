@@ -223,14 +223,25 @@ async function deleteDonThuoc(req,res){
         }
     )
     // console.log(result)
+    if (result == true)
+        return res.json({
+            isSuccess: true,
+            message: 'request Successfully',
+            status: res.statusCode,
+            data: {
+                
+            }
+        })
+    
     return res.json({
-        isSuccess: true,
-        message: 'request Successfully',
+        isSuccess: false,
+        message: 'request fail',
         status: res.statusCode,
         data: {
             
         }
     })
+
 }
 
 async function addChiTietDonThuoc(req,res){
@@ -261,7 +272,7 @@ async function addChiTietDonThuoc(req,res){
 
 async function getLoaiThuoc(req,res)
 {
-    let tenthuoc = req.params.tenthuoc
+    let tenthuoc = req.body
 
     let result = await database.returnLoaiThuoc(tenthuoc)
     .catch(
@@ -295,5 +306,6 @@ module.exports={getAllDonThuoc,
     deleteDonThuoc,
     addChiTietDonThuoc,
     getLoaiThuoc,
-    getDonThuocNgay
+    getDonThuocNgay,
+    getLoaiThuoc
 }

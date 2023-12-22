@@ -19,12 +19,14 @@ const hosobenhnhan = require('./route/hosobenhnhan.route')
 const hoadon = require ('./route/hoadon.route')
 const lichhen = require('./route/lichhen.route')
 const lichlamviec = require('./route/lichlamviec.route')
+const nhanvien = require('./route/nhanvien.route');
 
 app.use(donthuoc)
 app.use(dieutri)
 app.use(hosobenhnhan)
 app.use(lichhen)
 app.use(lichlamviec)
+app.use(nhanvien)
 app.use(hoadon)
 
 app.listen(port, ()=>console.log(`Example app listening at htttp://localhost:${port}`))

@@ -29,6 +29,15 @@ async function returnAddHoaDon (idhoadon, loaithanhtoan, ghichuhoadon, ngaygiaod
     const isSuccess = await request.execute(`SP_THEMHOADON`)
     return isSuccess.returnValue
 }
+
+async function returnHoaDonNgay(date)
+{
+    const request = new sql.Request()
+    request.input('NGAY', sql.date, date)
+    const listHoaDon = await request.execute(`SP_XEMDANHSACHHOADONTHEONGAY`)
+    return listHoaDon
+}
 module.exports={returnChiTietHoaDon, 
     returnHoaDon,
-returnAddHoaDon}
+returnAddHoaDon,
+returnHoaDonNgay}

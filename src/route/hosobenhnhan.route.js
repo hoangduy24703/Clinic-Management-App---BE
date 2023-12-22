@@ -3,7 +3,7 @@ const express = require('express')
 const route = express.Router()
 
 route.get('/hosobenhnhan/:id', controller.getChiTietHoSoBenhNhan);
-route.get('/dangnhap', controller.getDangNhap);
+route.post('/dangnhap', controller.getDangNhap);
 
 route.post('/hosobenhnhan/capnhat', controller.postCapNhatHoSoBenhNhan);
 route.post('/hosobenhnhan/timkiem', controller.postDanhSachBenhNhan);

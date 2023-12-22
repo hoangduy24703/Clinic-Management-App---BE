@@ -33,7 +33,7 @@ GO
 
 --ĐĂNG NHẬP
 CREATE OR ALTER PROCEDURE dangnhap
-    @SDT CHAR(8),
+    @SDT CHAR(10),
     @MATKHAU VARCHAR(10)
 AS
 BEGIN
@@ -43,13 +43,15 @@ BEGIN
         -- Kiểm tra xem người dùng có tồn tại và thông tin đúng không
         IF EXISTS (SELECT 1 FROM NHANVIEN WHERE SODIENTHOAINV = @SDT AND MATKHAU = @MATKHAU)
         BEGIN
-            PRINT 'Đăng nhập thành công';
+			SELECT IDNHANVIEN, IDPHONGKHAM, LOAINV
+			FROM NHANVIEN NV
+			WHERE NV.SODIENTHOAINV = @SDT AND MATKHAU = @MATKHAU
+            PRINT N'Đăng nhập thành công';
         END
         ELSE
         BEGIN
-            PRINT 'Đăng nhập thất bại';
+            PRINT N'Đăng nhập thất bại';
         END
-
         COMMIT;
     END TRY
     BEGIN CATCH

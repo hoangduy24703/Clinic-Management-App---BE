@@ -47,14 +47,14 @@ async function postCapNhatHoSoBenhNhan(req, res) {
 
 async function getDangNhap(req, res) {
     try {
-        const { data } = req.body;
-        let result = await database.returnDangNhap(data);
+        const { SDT, MATKHAU } = req.body;
+        let result = await database.returnDangNhap(SDT, MATKHAU);
 
         return res.json({
             isSuccess: true,
             message: 'Login successfully',
             status: res.statusCode,
-            data: result
+            data: result.recordsets[0]
         })
     }
     catch (err) {
@@ -77,7 +77,7 @@ async function postDangKy(req, res) {
             isSuccess: true,
             message: 'Register successfully',
             status: res.statusCode,
-            data: result
+            data: result.recordsets[0]
         })
     }
     catch (err) {
