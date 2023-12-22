@@ -306,5 +306,6 @@ module.exports={getAllDonThuoc,
     deleteDonThuoc,
     addChiTietDonThuoc,
     getLoaiThuoc,
-    getDonThuocNgay
+    getDonThuocNgay,
+    getLoaiThuoc
 }

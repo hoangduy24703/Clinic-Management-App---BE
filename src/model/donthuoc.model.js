@@ -133,7 +133,14 @@ async function returnDeleteDonThuoc(id)
     return false
 }
 
-   
+async function returnLoaiThuoc(tenthuoc)
+{
+    const request = new Request()
+    request.input('tenthuoc',sql.NChar, tenthuoc)
+
+    const result = await request.execute(`SP_TIM1LOAITHUOC`)
+    return result
+}
 
 module.exports={returnAllDonThuoc,
     returnChiTietDonThuoc,
@@ -142,5 +149,6 @@ module.exports={returnAllDonThuoc,
     returnUpdateLoaiThuoc,
     returnAddDonThuoc,
     returnAddChiTietDonThuoc,
-    returnDeleteDonThuoc
+    returnDeleteDonThuoc,
+    returnLoaiThuoc
 }
