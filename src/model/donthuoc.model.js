@@ -120,18 +120,20 @@ async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //da che
 
 async function returnDeleteDonThuoc(id)
 {
-    request.addListener('IDDONTHUOC', id)
+    const request = new Request()
+    request.input('IDDONTHUOC', id)
 
     const isSuccess = await request.execute(`SP_XOADONTHUOC`)
-    if (isSuccess != 1 && isSuccess != 2)
+    if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
     {
         
         return true
     }
-
+    console.log(isSuccess.returnValue)
     return false
 }
 
+   
 
 module.exports={returnAllDonThuoc,
     returnChiTietDonThuoc,
@@ -139,5 +141,6 @@ module.exports={returnAllDonThuoc,
     returnAddLoaiThuoc,
     returnUpdateLoaiThuoc,
     returnAddDonThuoc,
-    returnAddChiTietDonThuoc
+    returnAddChiTietDonThuoc,
+    returnDeleteDonThuoc
 }
