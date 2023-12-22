@@ -272,8 +272,13 @@ async function addChiTietDonThuoc(req,res){
 
 async function getLoaiThuoc(req,res)
 {
+<<<<<<< HEAD
     let tenthuoc  = req.body
 
+=======
+    let {tenthuoc} = req.body
+    // console.log(req.body)
+>>>>>>> 0ff5778d7ce3d1ba13ac179ba0e8f9ec4daf772a
     let result = await database.returnLoaiThuoc(tenthuoc)
     .catch(
         err=>{

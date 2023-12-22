@@ -25,4 +25,68 @@ async function postLichLamViec(req,res){
     }
 }
 
-module.exports = {postLichLamViec}
+
+async function postThemLichLamViec(req,res){
+    try {
+        const { ID_NHANVIEN, NGAY, ID_CALAM} = req.body;
+        console.log(ID_NHANVIEN, NGAY, ID_CALAM);
+        let result = await database.returnThemLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM);
+        if (result ==0){
+            return res.json({
+                isSuccess: true,
+                message: 'Request Successfully',
+                status: res.statusCode,
+                data: result
+            })
+        }
+        else 
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: result
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+
+async function postXoaLichLamViec(req,res){
+    try {
+        const { ID_NHANVIEN, NGAY, ID_CALAM} = req.body;
+        let result = await database.returnXoaLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM);
+        if (result ==0){
+            return res.json({
+                isSuccess: true,
+                message: 'Request Successfully',
+                status: res.statusCode,
+                data: result
+            })
+        }
+        else 
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: result
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+
+module.exports = {postLichLamViec, postThemLichLamViec, postXoaLichLamViec}
