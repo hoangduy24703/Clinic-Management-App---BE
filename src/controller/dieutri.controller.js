@@ -357,4 +357,5 @@ module.exports = {
     addBDT,
     addKeHoach,
     getListKHbyID,
+    getDSBDT
 }
