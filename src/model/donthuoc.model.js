@@ -135,10 +135,12 @@ async function returnDeleteDonThuoc(id)
 
 async function returnLoaiThuoc(tenthuoc)
 {
-    const request = new Request()
-    request.input('tenthuoc',sql.NChar, tenthuoc)
+    const request = new sql.Request()
+    // console.log(tenthuoc)
+    request.input('TENTHUOC',sql.NChar, tenthuoc)
 
     const result = await request.execute(`SP_TIM1LOAITHUOC`)
+    console.log(result.returnValue)
     return result
 }
 
