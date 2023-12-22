@@ -272,7 +272,7 @@ async function addChiTietDonThuoc(req,res){
 
 async function getLoaiThuoc(req,res)
 {
-    let tenthuoc = req.body
+    let tenthuoc  = req.body
 
     let result = await database.returnLoaiThuoc(tenthuoc)
     .catch(
@@ -286,7 +286,7 @@ async function getLoaiThuoc(req,res)
             })
         }
     )
-    // console.log(result)
+    console.log(result)
     return res.json({
         isSuccess: true,
         message: 'request Successfully',

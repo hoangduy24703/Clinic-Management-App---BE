@@ -15,10 +15,10 @@ route.post('/donthuoc/addDonThuoc', controller.addDonThuoc)
 route.post('/donthuoc/deleteDonThuoc/:id', controller.deleteDonThuoc)
 route.post('/donthuoc/addChiTietDonThuoc', controller.addChiTietDonThuoc)
 
-route.post('/donthuoc/getLoaiThuoc/:tenthuoc', controller.getLoaiThuoc)
+route.post('/donthuoc/getLoaiThuoc', controller.getLoaiThuoc)
 
 //Xem danh sach thuoc
-route.get('/thuoc/getDSThuoc', controller.getAllThuoc)
+// route.get('/thuoc/getDSThuoc', controller.getAllThuoc)
 
 
 
