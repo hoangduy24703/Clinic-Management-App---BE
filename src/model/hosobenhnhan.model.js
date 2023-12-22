@@ -34,11 +34,11 @@ async function returnCapNhatHoSoBenhNhan(data) {
     }
 }
 
-async function returnDangNhap(data) {
+async function returnDangNhap(SDT, MATKHAU) {
     try {
-        const request = new Request()
-        request.input('SDT', sql.Char, data.SDT);
-        request.input('MATKHAU', sql.VarChar, data.MATKHAU);
+        const request = new sql.Request()
+        request.input('SDT', sql.Char, SDT);
+        request.input('MATKHAU', sql.VarChar, MATKHAU);
         return await request.execute('dangnhap');
     }
     catch (err) {

@@ -52,15 +52,18 @@ async function returnLichHenDayToDay(NGAY_A, NGAY_B) {
 async function returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM) {
     try {
         const request = new sql.Request();
+        console.log(THOIGIANHEN)
         request.input('NGAYHEN', sql.Date, NGAYHEN);
-        request.input('THOIGIANHEN', sql.Time, THOIGIANHEN);
+        request.input('THOIGIANHEN', sql.Char, THOIGIANHEN);
         request.input('TINHTRANG', sql.NChar, TINHTRANG );
         request.input('PHONG', sql.Char, PHONG );
         request.input('GHICHU', sql.NVarChar, GHICHU );
         request.input('BACSI', sql.Char, BACSI );
-        request.input('BENHNHAN', sql.Char, BENHNHAN );
-        request.input('TROKHAM', sql.Char, TROKHAM );
-        return await request.execute('SP_THEM_LICH_HEN');
+        request.input('BENHNHAN', sql.Char, BENHNHAN )
+        request.input('TROKHAM', sql.Char, TROKHAM )
+        const isSuccess= await request.execute('SP_THEM_LICH_HEN');
+        console.log(isSuccess.returnValue)
+        return isSuccess.returnValue;
     }
     catch (error) {
         console.log(error);
@@ -70,11 +73,14 @@ async function returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU,
 async function returnXoaLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN) {
     try {
         const request = new sql.Request();
+        console.log(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
         request.input('NGAYHEN', sql.Date, NGAYHEN);
-        request.input('THOIGIANHEN', sql.Time, THOIGIANHEN);
+        request.input('THOIGIANHEN', sql.Char, THOIGIANHEN);
         request.input('BACSI', sql.Char, BACSI );
         request.input('BENHNHAN', sql.Char, BENHNHAN );
-        return await request.execute('SP_XOA_LICH_HEN');
+        const isSuccess= await request.execute('SP_XOA_LICH_HEN');
+        console.log(isSuccess.returnValue)
+        return isSuccess.returnValue;
     }
     catch (error) {
         console.log(error);

@@ -100,13 +100,13 @@ async function returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)   //
     return false
 }
 
-async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //
+async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //da check
 {
     const request = new sql.Request()
     request.input('IDTHUOC', idthuoc)
     .input('IDDONTHUOC', iddonthuoc)
     .input('SOLUONG', soluong)
-    
+
     const isSuccess = await request.execute(`SP_THEMCHITIETDONTHUOC`)
     console.log(isSuccess)
     if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
@@ -120,18 +120,29 @@ async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //
 
 async function returnDeleteDonThuoc(id)
 {
-    request.addListener('IDDONTHUOC', id)
+    const request = new Request()
+    request.input('IDDONTHUOC', id)
 
     const isSuccess = await request.execute(`SP_XOADONTHUOC`)
-    if (isSuccess != 1 && isSuccess != 2)
+    if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
     {
         
         return true
     }
-
+    console.log(isSuccess.returnValue)
     return false
 }
 
+async function returnLoaiThuoc(tenthuoc)
+{
+    const request = new sql.Request()
+    // console.log(tenthuoc)
+    request.input('TENTHUOC',sql.NChar, tenthuoc)
+
+    const result = await request.execute(`SP_TIM1LOAITHUOC`)
+    console.log(result.returnValue)
+    return result
+}
 
 module.exports={returnAllDonThuoc,
     returnChiTietDonThuoc,
@@ -139,5 +150,7 @@ module.exports={returnAllDonThuoc,
     returnAddLoaiThuoc,
     returnUpdateLoaiThuoc,
     returnAddDonThuoc,
-    returnAddChiTietDonThuoc
+    returnAddChiTietDonThuoc,
+    returnDeleteDonThuoc,
+    returnLoaiThuoc
 }
