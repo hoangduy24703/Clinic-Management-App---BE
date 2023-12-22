@@ -51,8 +51,6 @@ ON HOADON
 DROP INDEX HS_TEN
 ON HOSOBENHNHAN
 
-<<<<<<< HEAD
-=======
 --CHUNG
 DROP INDEX HS_ID
 ON HOSOBENHNHAN
@@ -60,7 +58,6 @@ ON HOSOBENHNHAN
 DROP INDEX NV_ID
 ON NHANVIEN
 
->>>>>>> 4faf968d41fd6591a98133847b7c927e0c5648b3
 ---------------------------------------------------TẠO INDEX
 --LỊCH HẸN
 
