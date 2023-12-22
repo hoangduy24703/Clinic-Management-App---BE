@@ -47,7 +47,6 @@ ON HOADON
 DROP INDEX HS_TEN
 ON HOSOBENHNHAN
 
-
 ---------------------------------------------------TẠO INDEX
 --LỊCH HẸN
 
