@@ -232,13 +232,16 @@ async function deleteDonThuoc(req,res){
                 
             }
         })
+    
     return res.json({
         isSuccess: false,
         message: 'request fail',
         status: res.statusCode,
         data: {
             
-        })
+        }
+    })
+
 }
 
 async function addChiTietDonThuoc(req,res){
