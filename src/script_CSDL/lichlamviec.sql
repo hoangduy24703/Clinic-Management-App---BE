@@ -1,4 +1,4 @@
-﻿--FORMAT INPUT: YYYY - MM - DD
+﻿ư--FORMAT INPUT: YYYY - MM - DD
 -- 1. Xem danh sách lịch làm việc của 1 bác sĩ từ ngày A->B
 CREATE OR ALTER PROC SP_XEM_LICH_LAM_VIEC_NGAY
 	@ID_NHASI CHAR(8),
@@ -34,7 +34,6 @@ RETURN 0
 GO
 
 EXEC SP_XEM_LICH_LAM_VIEC_NGAY 'NS000003','2023-12-08','2023-06-27'
-
 GO
 -- 2. Thêm lịch làm việc cho 1 bác sĩ
 CREATE OR ALTER PROC SP_THEM_LICH_LAM_VIEC

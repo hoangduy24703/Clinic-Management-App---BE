@@ -17,5 +17,27 @@ async function returnHoaDon(id)                     //DA LAM
     return listhoadon
 }
 
+async function returnAddHoaDon (idhoadon, loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri)
+{
+    const request = new sql.Request()
+    request.input('IDHOADON', idhoadon)
+    .input('LOAITHANHTOAN', loaithanhtoan)
+    .input('GHICHUHOADON', ghichuhoadon)
+    .input('NGAYGIAODICH', ngaygiaodich)
+    .input('IDBENHNHAN', idbenhnhan)
+    .input('IDBUOIDIEUTRI', idbuoidieutri)
+    const isSuccess = await request.execute(`SP_THEMHOADON`)
+    return isSuccess.returnValue
+}
+
+async function returnHoaDonNgay(date)
+{
+    const request = new sql.Request()
+    request.input('NGAY', sql.date, date)
+    const listHoaDon = await request.execute(`SP_XEMDANHSACHHOADONTHEONGAY`)
+    return listHoaDon
+}
 module.exports={returnChiTietHoaDon, 
-    returnHoaDon}
+    returnHoaDon,
+returnAddHoaDon,
+returnHoaDonNgay}

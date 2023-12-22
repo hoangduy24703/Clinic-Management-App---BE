@@ -17,4 +17,10 @@ route.post('/donthuoc/addChiTietDonThuoc', controller.addChiTietDonThuoc)
 
 route.get('/donthuoc/getLoaiThuoc/:tenthuoc', controller.getLoaiThuoc)
 
+//Xem danh sach thuoc
+route.get('/thuoc/getDSThuoc', controller.getAllThuoc)
+
+
+
+
 module.exports = route

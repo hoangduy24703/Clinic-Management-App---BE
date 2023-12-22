@@ -96,13 +96,22 @@ async function postLichHenDayToDay(req,res){
 async function postThemLichHen(req,res){
     try {
         const { NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM} = req.body;
+        console.log(NGAYHEN);
         let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM);
-        
+        if (result ==0){
+            return res.json({
+                isSuccess: true,
+                message: 'Request Successfully',
+                status: res.statusCode,
+                data: result
+            })
+        }
+        else 
         return res.json({
-            isSuccess: true,
-            message: 'Request Successfully',
+            isSuccess: false,
+            message: 'Request Failed',
             status: res.statusCode,
-            data: result.recordsets[0]
+            data: result
         })
     }
     catch (err) {
@@ -119,13 +128,22 @@ async function postThemLichHen(req,res){
 async function postXoaLichHen(req,res){
     try {
         const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN} = req.body;
-        let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
-        
+        let result = await database.returnXoaLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
+        console.log(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
+        if (result ==0){
+            return res.json({
+                isSuccess: true,
+                message: 'Request Successfully',
+                status: res.statusCode,
+                data: result
+            })
+        }
+        else 
         return res.json({
-            isSuccess: true,
-            message: 'Request Successfully',
+            isSuccess: false,
+            message: 'Request Failed',
             status: res.statusCode,
-            data: result.recordsets[0]
+            data: result
         })
     }
     catch (err) {
