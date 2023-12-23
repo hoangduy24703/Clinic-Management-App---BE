@@ -1,4 +1,5 @@
 const sql = require ('mssql');
+const { generateID } = require('../generateID');
 
 async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
     try {
@@ -13,8 +14,9 @@ async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
 
 async function returnCapNhatHoSoBenhNhan(data) {
     try {
+        var IDBENHNHAN = await generateID('BN') 
         const request = new Request()
-        request.input('IDBENHNHAN', sql.Char, data.IDBENHNHAN);
+        request.input('IDBENHNHAN', sql.Char, IDBENHNHAN);
         request.input('TENBN', sql.Char, data.TENBN);
         request.input('NAMSINH', sql.Date, data.DATE);
         request.input('GIOITINH', sql.NVarChar, data.GIOITINH);

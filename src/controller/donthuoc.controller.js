@@ -105,8 +105,8 @@ async function getDonThuocNgay(req,res){
 
 async function addLoaiThuoc(req,res){
     // let id = req.params.id
-    let {idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc}=req.body
-    let result = await database.returnAddLoaiThuoc(idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc)
+    let { idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc}=req.body
+    let result = await database.returnAddLoaiThuoc(tenthuoc, thanhphan, donvitinh, giathuoc)
     .catch(
         err=>{
             console.log(err)
@@ -156,9 +156,10 @@ async function updateLoaiThuoc(req,res){
 }
 async function addDonThuoc(req,res){
     // let id = req.params.id
-    let {iddonthuoc, ngaycap, idbuoidieutri} = req.body.donthuoc 
+    let {idbuoidieutri, ngaycap} = req.body.donthuoc
     let chitietdonthuoc = req.body.chitietdonthuoc
-    let result = await database.returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)
+
+    let result = await database.returnAddDonThuoc(ngaycap, idbuoidieutri)
     .catch(
         err=>{
             console.log(err)
@@ -272,13 +273,8 @@ async function addChiTietDonThuoc(req,res){
 
 async function getLoaiThuoc(req,res)
 {
-<<<<<<< HEAD
-    let tenthuoc  = req.body
-
-=======
     let {tenthuoc} = req.body
     // console.log(req.body)
->>>>>>> 0ff5778d7ce3d1ba13ac179ba0e8f9ec4daf772a
     let result = await database.returnLoaiThuoc(tenthuoc)
     .catch(
         err=>{
