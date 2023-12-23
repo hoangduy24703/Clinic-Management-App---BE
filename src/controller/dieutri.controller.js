@@ -198,7 +198,7 @@ async function addBDT(req,res){
             // request2.input('IDBUOIDIEUTRI',sql.Char, buoidieutri[chitiet].IDBUOIDIEUTRI)
             // request2.parameters.console
             // console.log(buoidieutri[chitiet].MADIEUTRI,buoidieutri[chitiet].IDBUOIDIEUTRI)
-            let temp = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI, buoidieutri[chitiet].IDBUOIDIEUTRI)
+            let temp = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI, IDBUOIDIEUTRI)
             .catch(
                 err=>{
                     console.log(err)
@@ -212,7 +212,7 @@ async function addBDT(req,res){
                 for (let chitietrang in rangdt)
                 {
                     let temp2 = await model.returnAddChiTietDT(rangdt[chitietrang].MADIEUTRI,
-                                                                rangdt[chitietrang].IDBUOIDIEUTRI,
+                                                                IDBUOIDIEUTRI,
                                                                 rangdt[chitiet].TENRANG,
                                                                 rangdt[chitiet].MATDIEUTRI)
             //         request3.input('MADIEUTRI', rangdt[chitietrang].MADIEUTRI)
