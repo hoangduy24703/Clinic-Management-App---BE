@@ -156,6 +156,29 @@ async function getBDT(req,res) {
     })
 }
 
+// {
+//     tongquan: {
+//         MABENHNHAN,
+//         MOTA,
+//         GHICHU,
+//         NGAY,
+//         KHAMCHINH,
+//         TROKHAM,
+//         KEHOACH
+//     },
+//     chitietdieutri: [
+//         {
+//             MADIEUTRI,
+//             rangdt: [
+//                 {
+//                     TENRANG,
+//                     MATDIEUTRI
+//                 }
+//             ]
+//         }
+//     ]
+// }
+
 async function addBDT(req,res){
     let { MABENHNHAN,
         MOTA,
@@ -211,7 +234,7 @@ async function addBDT(req,res){
                 let rangdt = buoidieutri[chitiet].rangdt
                 for (let chitietrang in rangdt)
                 {
-                    let temp2 = await model.returnAddChiTietDT(rangdt[chitietrang].MADIEUTRI,
+                    let temp2 = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI,
                                                                 IDBUOIDIEUTRI,
                                                                 rangdt[chitiet].TENRANG,
                                                                 rangdt[chitiet].MATDIEUTRI)
