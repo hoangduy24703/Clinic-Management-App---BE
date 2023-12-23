@@ -265,3 +265,23 @@ ON [PRIMARY]
 CREATE CLUSTERED INDEX IX_DONTHUOC_YEAR
 ON DONTHUOC ( NGAYCAP) 
 ON DT_YearPartitionsScheme(NGAYCAP)
+
+-- Thông tin về partition của một bảng
+SELECT 
+    t.name AS TableName,
+    i.name AS IndexName,
+    p.partition_number AS PartitionNumber,
+    p.rows AS NumberOfRows,
+    fg.name AS FileGroupName
+FROM 
+    sys.tables t
+JOIN 
+    sys.indexes i ON t.object_id = i.object_id
+JOIN 
+    sys.partitions p ON i.object_id = p.object_id AND i.index_id = p.index_id
+JOIN 
+    sys.allocation_units au ON p.partition_id = au.container_id
+JOIN 
+    sys.filegroups fg ON au.data_space_id = fg.data_space_id
+WHERE 
+    t.name = 'LICHHEN';
