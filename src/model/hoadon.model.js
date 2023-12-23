@@ -1,4 +1,5 @@
 const sql = require ('mssql');
+const { generateID } = require('../generateID');
 
 async function returnChiTietHoaDon(idhoadon)     //DA LAM
 {
@@ -17,9 +18,10 @@ async function returnHoaDon(id)                     //DA LAM
     return listhoadon
 }
 
-async function returnAddHoaDon (idhoadon, loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri)
+async function returnAddHoaDon (loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri)
 {
     const request = new sql.Request()
+    var idhoadon = await generateIDHD()
     request.input('IDHOADON', idhoadon)
     .input('LOAITHANHTOAN', loaithanhtoan)
     .input('GHICHUHOADON', ghichuhoadon)

@@ -1,4 +1,5 @@
 const sql = require ('mssql');
+const { generateID } = require('../generateID');
 // const request = new sql.Request()
 
 async function returnAllDonThuoc()   //DA LAM
@@ -44,23 +45,26 @@ async function returnChiTietDonThuoc(id)     //DA LAM
 //     return listDonThuoc
 // }
 
-async function returnAddLoaiThuoc(idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc) //da checlk
+//Thêm ID tự động
+async function returnAddLoaiThuoc(tenthuoc, thanhphan, donvitinh, giathuoc) //da checlk
 {
+    var idthuoc = await generateID('DC')
+    console.log(idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc)
     const request = new sql.Request()
-    request.input('IDTHUOC', idthuoc)
+    request.input('IDTHUOC',sql.Char, idthuoc)
     .input('TENTHUOC', tenthuoc)
     .input('THANHPHAN', thanhphan)
     .input('DONVITINH',sql.NChar, donvitinh)
     .input('GIATHUOC', giathuoc)
 
     const isSuccess = await request.execute(`SP_THEM1LOAITHUOC`)
-    // console.log(isSuccess.returnValue)
+    // console.log(isSuccess.returnValue) 
     if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
     {
         
         return true
     }
-    
+    console.log(isSuccess.recordsets[0])
     return false
 }
 
@@ -82,12 +86,13 @@ async function returnUpdateLoaiThuoc(idthuoc, tenthuoc, thanhphan, donvitinh, gi
 
     return false
 }
-
-async function returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)   //
+//Them ID tu dong
+async function returnAddDonThuoc(ngaycap, idbuoidieutri)   //
 {
+    var iddonthuoc = await generateID('ĐTBĐT')
     const request = new sql.Request()
-    request.input('IDDONTHUOC', iddonthuoc)
-    .input('NGAYCAP', ngaycap)
+    request.input('IDDONTHUOC', sql.Char, iddonthuoc)
+    .input('NGAYCAP', sql.Date, ngaycap)
     .input('IDBUOIDIEUTRI', idbuoidieutri)
 
     const isSuccess = await request.execute(`SP_THEMDONTHUOC`)

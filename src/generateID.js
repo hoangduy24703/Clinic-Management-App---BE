@@ -18,34 +18,34 @@ async function generateID(kitudau)
     const slicing = kitudau.length
     let result;
     let temp
-   if (kitudau =='BDT')
+   if (kitudau =='BDT') //done
    {
     console.log()
     result = await queryString ("IDBUOIDIEUTRI", "BUOIDIEUTRI")
     temp = result.IDBUOIDIEUTRI
     console.log(temp)
    }
-   else if (kitudau =='ĐTBDT')
+   else if (kitudau =='ĐTBDT')//chờ Hòa
    {
     result = await queryString ("IDDONTHUOC", "DONTHUOC")
     temp = result.IDDONTHUOC
    }
-   else if (kitudau == 'BN')
+   else if (kitudau == 'BN') //done
    {
     result = await queryString ("IDBENHNHAN", "HOSOBENHNHAN")
     temp = result.IDBENHNHAN
    }
-   else if (kitudau == 'KH')
+   else if (kitudau == 'KH') //done
    {
     result = await queryString ("IDDIEUTRI", "KEHOACHDIEUTRI")
     temp = result.IDDIEUTRI
    }
-   else if (kitudau == 'NV')
+   else if (kitudau == 'NV') // không có
    {
     result = await queryString ("IDNHANVIEN", "NHANVIEN")
     temp=result.IDNHANVIEN
    }
-   else if (kitudau == 'DC')
+   else if (kitudau == 'DC')//done
    {
     result = await queryString ("IDTHUOC", "THUOC")
     temp=result.IDTHUOC
@@ -57,7 +57,7 @@ async function generateID(kitudau)
     return kitudau + temp.toString()
 
 }
-async function generateIDHD()
+async function generateIDHD() //done
 {
     const date = new Date().toJSON().slice(0, 10);
     

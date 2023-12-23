@@ -1,5 +1,6 @@
 const sql = require ('mssql');
-const model = require('../model/dieutri.model')
+const model = require('../model/dieutri.model');
+const { generateID } = require('../generateID');
 
 function checkId(id){
     if (id == null) return false
@@ -157,7 +158,6 @@ async function getBDT(req,res) {
 
 async function addBDT(req,res){
     let { MABENHNHAN,
-        IDBUOIDIEUTRI,
         MOTA,
         GHICHU,
         NGAY,
@@ -168,6 +168,8 @@ async function addBDT(req,res){
     let buoidieutri = req.body.chitietdieutri
 
     let request = new sql.Request()
+    var IDBUOIDIEUTRI = await generateID ('BDT')
+    
     request.input('MABENHNHAN', MABENHNHAN)
     .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
     .input('MOTA',sql.NVarChar, MOTA)
@@ -255,7 +257,7 @@ async function addBDT(req,res){
 }
 
 async function addKeHoach(req,res){
-    let { IDDIEUTRI, 
+    let { 
         MOTAKHDT,
         TRANGTHAI,
         GHICHUKHDT,
@@ -263,6 +265,7 @@ async function addKeHoach(req,res){
         BSPHUTRACH} = req.body
     
     let request = new sql.Request()
+    var IDDIEUTRI = await generateID('KH')
     request.input('IDBUOIDIEUTRI', sql.Char,id )
     .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
     .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
