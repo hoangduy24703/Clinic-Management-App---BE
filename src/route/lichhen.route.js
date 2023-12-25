@@ -9,5 +9,4 @@ route.post('/lichhen/searchD2D', controller.postLichHenDayToDay);
 route.post('/lichhen/createLH', controller.postThemLichHen);
 route.post('/lichhen/deleteLH', controller.postXoaLichHen);
 
-
 module.exports = route;
