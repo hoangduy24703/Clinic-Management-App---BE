@@ -1,5 +1,6 @@
 const sql = require ('mssql');
-const model = require('../model/dieutri.model')
+const model = require('../model/dieutri.model');
+const { generateID } = require('../generateID');
 
 function checkId(id){
     if (id == null) return false
@@ -155,9 +156,31 @@ async function getBDT(req,res) {
     })
 }
 
+// {
+//     tongquan: {
+//         MABENHNHAN,
+//         MOTA,
+//         GHICHU,
+//         NGAY,
+//         KHAMCHINH,
+//         TROKHAM,
+//         KEHOACH
+//     },
+//     chitietdieutri: [
+//         {
+//             MADIEUTRI,
+//             rangdt: [
+//                 {
+//                     TENRANG,
+//                     MATDIEUTRI
+//                 }
+//             ]
+//         }
+//     ]
+// }
+
 async function addBDT(req,res){
     let { MABENHNHAN,
-        IDBUOIDIEUTRI,
         MOTA,
         GHICHU,
         NGAY,
@@ -168,6 +191,8 @@ async function addBDT(req,res){
     let buoidieutri = req.body.chitietdieutri
 
     let request = new sql.Request()
+    var IDBUOIDIEUTRI = await generateID ('BDT')
+    
     request.input('MABENHNHAN', MABENHNHAN)
     .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
     .input('MOTA',sql.NVarChar, MOTA)
@@ -196,7 +221,7 @@ async function addBDT(req,res){
             // request2.input('IDBUOIDIEUTRI',sql.Char, buoidieutri[chitiet].IDBUOIDIEUTRI)
             // request2.parameters.console
             // console.log(buoidieutri[chitiet].MADIEUTRI,buoidieutri[chitiet].IDBUOIDIEUTRI)
-            let temp = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI, buoidieutri[chitiet].IDBUOIDIEUTRI)
+            let temp = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI, IDBUOIDIEUTRI)
             .catch(
                 err=>{
                     console.log(err)
@@ -209,8 +234,8 @@ async function addBDT(req,res){
                 let rangdt = buoidieutri[chitiet].rangdt
                 for (let chitietrang in rangdt)
                 {
-                    let temp2 = await model.returnAddChiTietDT(rangdt[chitietrang].MADIEUTRI,
-                                                                rangdt[chitietrang].IDBUOIDIEUTRI,
+                    let temp2 = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI,
+                                                                IDBUOIDIEUTRI,
                                                                 rangdt[chitiet].TENRANG,
                                                                 rangdt[chitiet].MATDIEUTRI)
             //         request3.input('MADIEUTRI', rangdt[chitietrang].MADIEUTRI)
@@ -255,7 +280,7 @@ async function addBDT(req,res){
 }
 
 async function addKeHoach(req,res){
-    let { IDDIEUTRI, 
+    let { 
         MOTAKHDT,
         TRANGTHAI,
         GHICHUKHDT,
@@ -263,6 +288,7 @@ async function addKeHoach(req,res){
         BSPHUTRACH} = req.body
     
     let request = new sql.Request()
+    var IDDIEUTRI = await generateID('KH')
     request.input('IDBUOIDIEUTRI', sql.Char,id )
     .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
     .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
@@ -322,32 +348,6 @@ async function getListKHbyID(req,res){
     })
 }
 
-async function getDSBDT(req,res){
-    let request = new sql.Request()
-    
-    let result = await request.execute('LAYBUOIDT_BN')
-    .catch(
-        err=>{
-            console.log(err)
-            return res.json({
-                isSuccess: false,
-                message: 'request Failure',
-                status: res.statusCode,
-                data: ''
-            })
-        }
-    )
-    console.log(result)
-    return res.json({
-        isSuccess: true,
-        message: 'request Successfully',
-        status: res.statusCode,
-        data: {
-            listBDT: result.recordsets[0]
-        }
-    })
-}
-
 module.exports = {
     getListBDTbyID,
     getListBDTbyDate,
@@ -357,5 +357,4 @@ module.exports = {
     addBDT,
     addKeHoach,
     getListKHbyID,
-    getDSBDT
 }

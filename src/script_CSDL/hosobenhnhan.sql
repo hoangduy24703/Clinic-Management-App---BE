@@ -65,7 +65,7 @@ BEGIN
 END
 GO
 EXEC timhosobenhnhanquaten 'toan ti phu'
-
+GO
 --CẬP NHẬT HỒ SƠ BỆNH NHÂN
 CREATE OR ALTER PROC capnhathosobenhnhan 
 		@IDBENHNHAN CHAR(8), 

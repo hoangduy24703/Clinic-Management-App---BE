@@ -80,8 +80,8 @@ async function getChiTietHoaDon(req,res){
 
 async function addHoaDon(req,res){
     // let date = req.params.date
-    let {idhoadon, loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri} =req.body
-    let result = await database.returnAddHoaDon(idhoadon, loaithanhtoan, 
+    let {loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri} =req.body
+    let result = await database.returnAddHoaDon(loaithanhtoan, 
         ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri)
     .catch(
         err=>{

@@ -1,4 +1,3 @@
-
 const sql = require ('mssql');
 
 function te(dateA,dateB) {

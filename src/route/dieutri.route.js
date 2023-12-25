@@ -7,7 +7,6 @@ route.get('/dieutri/ListBDT/date/:dateA/:dateB', controller.getListBDTbyDate)
 route.get('/dieutri/KeHoach/:id', controller.getKeHoach)
 route.get('/dieutri/BDT/:id', controller.getBDT)
 route.get('/dieutri/ListKH/benhnhan/:id', controller.getListKHbyID)
-// route.get('/dieutri/danhsachDieuTri', controller.getDSBDT)
 
 route.post('/dieutri/addBDT', controller.addBDT)
 route.post('/dieutri/addKeHoach', controller.addKeHoach)
