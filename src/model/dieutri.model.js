@@ -34,7 +34,8 @@ async function returnAddChiTietDT(madieutri, idbuoidieutri)
     .input('IDBUOIDIEUTRI',sql.Char, idbuoidieutri)
 
     let isSuccess = await request.execute(`THEMCHITIETDT`)
-    if (isSuccess.returnValue != 1)
+    // console.log(isSuccess)
+    if (isSuccess.returnValue == 0)
     {
         
         return true
@@ -52,9 +53,9 @@ async function returnRangDT(madieutri, iddieutri, tenrang, matdieutri)
             .input('MATDIEUTRI', matdieutri)
 
     let isSuccess = await request.execute(`THEMRANGDT`)
-    if (isSuccess.returnValue != 1)
+    // console.log(isSuccess)
+    if (isSuccess.returnValue == 0)
     {
-        
         return true
     }
 
@@ -62,5 +63,6 @@ async function returnRangDT(madieutri, iddieutri, tenrang, matdieutri)
 }
 module.exports = {
     te,
-    returnAddChiTietDT
+    returnAddChiTietDT,
+    returnRangDT
 }

@@ -11,7 +11,6 @@ app.use(express.urlencoded({
     extended: true, 
     limit: "50mb",
 }));
-app.use(express.json());
 
 const donthuoc = require('./route/donthuoc.route')
 const dieutri = require('./route/dieutri.route')
