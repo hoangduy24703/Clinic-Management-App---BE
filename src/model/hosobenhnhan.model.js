@@ -3,6 +3,7 @@ const { generateID } = require('../generateID');
 
 async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
     try {
+        console.log(IDBENHNHAN);
         const request = new sql.Request();
         request.input('IDBENHNHAN', sql.Char, IDBENHNHAN);
         return await request.execute('xemchitiethosobenhnhan');

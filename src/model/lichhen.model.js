@@ -62,7 +62,8 @@ async function returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU,
         request.input('BENHNHAN', sql.Char, BENHNHAN )
         request.input('TROKHAM', sql.Char, TROKHAM )
         const isSuccess= await request.execute('SP_THEM_LICH_HEN');
-        console.log(isSuccess.returnValue)
+        console.log(isSuccess)
+        
         return isSuccess.returnValue;
     }
     catch (error) {

@@ -98,6 +98,7 @@ async function postThemLichHen(req,res){
         const { NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM } = req.body;
         console.log(NGAYHEN);
         let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM);
+        console.log(result);
         if (result ==0){
             return res.json({
                 isSuccess: true,

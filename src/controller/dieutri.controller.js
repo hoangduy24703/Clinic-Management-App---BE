@@ -180,7 +180,7 @@ async function getBDT(req,res) {
 // }
 
 async function addBDT(req,res){
-    let { MABENHNHAN,
+    let { BENHNHAN,
         MOTA,
         GHICHU,
         NGAY,
@@ -193,7 +193,7 @@ async function addBDT(req,res){
     let request = new sql.Request()
     var IDBUOIDIEUTRI = await generateID ('BDT')
     
-    request.input('MABENHNHAN', MABENHNHAN)
+    request.input('MABENHNHAN', BENHNHAN)
     .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
     .input('MOTA',sql.NVarChar, MOTA)
     .input('GHICHU', sql.NVarChar, GHICHU)

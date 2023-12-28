@@ -35,7 +35,7 @@ async function returnAddHoaDon (loaithanhtoan, ghichuhoadon, ngaygiaodich, idben
 async function returnHoaDonNgay(date)
 {
     const request = new sql.Request()
-    request.input('NGAY', sql.date, date)
+    request.input('NGAY', sql.Char, date)
     const listHoaDon = await request.execute(`SP_XEMDANHSACHHOADONTHEONGAY`)
     return listHoaDon
 }
