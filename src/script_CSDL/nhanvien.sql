@@ -51,6 +51,7 @@ BEGIN
         ELSE
         BEGIN
             PRINT N'Đăng nhập thất bại';
+			ROLLBACK;
         END
         COMMIT;
     END TRY

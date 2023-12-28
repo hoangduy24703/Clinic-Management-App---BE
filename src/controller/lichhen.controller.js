@@ -95,7 +95,7 @@ async function postLichHenDayToDay(req,res){
 
 async function postThemLichHen(req,res){
     try {
-        const { NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM} = req.body;
+        const { NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM } = req.body;
         console.log(NGAYHEN);
         let result = await database.returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM);
         if (result ==0){
@@ -127,7 +127,7 @@ async function postThemLichHen(req,res){
 
 async function postXoaLichHen(req,res){
     try {
-        const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN} = req.body;
+        const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN } = req.body;
         let result = await database.returnXoaLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
         console.log(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN);
         if (result ==0){

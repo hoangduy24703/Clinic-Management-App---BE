@@ -47,8 +47,7 @@ BEGIN TRAN
 COMMIT TRAN
 RETURN 0
 GO 
-EXEC SP_THEM1LOAITHUOC 'DC000060','Novocain 3%','Procain HCl','g','10.0'
-GO
+
 -----Cap nhat 1 loai thuoc----- (idthuoc, tenthuoc, thanh phan, donvitinh, giathuoc)
 CREATE OR ALTER PROC SP_CAPNHAT1LOAITHUOC
 	@IDTHUOC CHAR(8),
