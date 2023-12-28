@@ -94,14 +94,14 @@ async function addHoaDon(req,res){
             })
         }
     )
-    // console.log(result)
+    console.log(result)
     if (result ==0)
         return res.json({
             isSuccess: true,
             message: 'request Successfully',
             status: res.statusCode,
             data: {
-                isSuccess: result
+                isSuccess: result 
             }
         })
     return res.json({
