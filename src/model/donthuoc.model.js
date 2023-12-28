@@ -87,15 +87,15 @@ async function returnUpdateLoaiThuoc(idthuoc, tenthuoc, thanhphan, donvitinh, gi
     return false
 }
 //Them ID tu dong
-async function returnAddDonThuoc(ngaycap, idbuoidieutri)   //
+async function returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)   //
 {
-    var iddonthuoc = await generateID('ĐTBĐT')
     const request = new sql.Request()
-    request.input('IDDONTHUOC', sql.Char, iddonthuoc)
+    request.input('IDDONTHUOC', iddonthuoc)
     .input('NGAYCAP', sql.Date, ngaycap)
     .input('IDBUOIDIEUTRI', idbuoidieutri)
-
+    console.log(iddonthuoc, ngaycap, idbuoidieutri)
     const isSuccess = await request.execute(`SP_THEMDONTHUOC`)
+    console.log(isSuccess)
     if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
     {
         
@@ -108,7 +108,7 @@ async function returnAddDonThuoc(ngaycap, idbuoidieutri)   //
 async function returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)   //da check
 {
     const request = new sql.Request()
-    request.input('IDTHUOC', idthuoc)
+    request.input('IDTHUOC', sql.Char, idthuoc)
     .input('IDDONTHUOC', iddonthuoc)
     .input('SOLUONG', soluong)
 
