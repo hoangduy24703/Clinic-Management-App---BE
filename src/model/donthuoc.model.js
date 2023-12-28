@@ -87,9 +87,9 @@ async function returnUpdateLoaiThuoc(idthuoc, tenthuoc, thanhphan, donvitinh, gi
     return false
 }
 //Them ID tu dong
-async function returnAddDonThuoc(ngaycap, idbuoidieutri)   //
+async function returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)   //
 {
-    var iddonthuoc = await generateID('ĐTBĐT')
+    // var iddonthuoc = await generateID('ĐTBĐT')
     const request = new sql.Request()
     request.input('IDDONTHUOC', sql.Char, iddonthuoc)
     .input('NGAYCAP', sql.Date, ngaycap)

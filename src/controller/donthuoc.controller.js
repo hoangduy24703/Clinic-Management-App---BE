@@ -158,8 +158,8 @@ async function addDonThuoc(req,res){
     // let id = req.params.id
     let {idbuoidieutri, ngaycap} = req.body.donthuoc
     let chitietdonthuoc = req.body.chitietdonthuoc
-
-    let result = await database.returnAddDonThuoc(ngaycap, idbuoidieutri)
+    let iddonthuoc = generateID("")
+    let result = await database.returnAddDonThuoc(iddonthuoc,ngaycap, idbuoidieutri)
     .catch(
         err=>{
             console.log(err)
