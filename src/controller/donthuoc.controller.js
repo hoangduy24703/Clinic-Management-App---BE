@@ -1,4 +1,5 @@
 const database = require('../model/donthuoc.model')
+const { generateID } = require('../generateID');
 
 async function getAllDonThuoc(req,res){
     let result = await database.returnAllDonThuoc()
@@ -105,7 +106,7 @@ async function getDonThuocNgay(req,res){
 
 async function addLoaiThuoc(req,res){
     // let id = req.params.id
-    let { idthuoc, tenthuoc, thanhphan, donvitinh, giathuoc}=req.body
+    let { tenthuoc, thanhphan, donvitinh, giathuoc}=req.body
     let result = await database.returnAddLoaiThuoc(tenthuoc, thanhphan, donvitinh, giathuoc)
     .catch(
         err=>{
@@ -158,8 +159,8 @@ async function addDonThuoc(req,res){
     // let id = req.params.id
     let {idbuoidieutri, ngaycap} = req.body.donthuoc
     let chitietdonthuoc = req.body.chitietdonthuoc
-
-    let result = await database.returnAddDonThuoc(ngaycap, idbuoidieutri)
+    var iddonthuoc = await generateID('ĐTBDT')
+    let result = await database.returnAddDonThuoc(iddonthuoc, ngaycap, idbuoidieutri)
     .catch(
         err=>{
             console.log(err)

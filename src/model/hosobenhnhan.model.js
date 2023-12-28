@@ -65,7 +65,7 @@ async function returnDanhSachBenhNhan(TENBN) {
     try {
         const request = new sql.Request();
         request.input("TEN", sql.NVarChar, TENBN);
-        return await request.execute('xemhosobenhnhanquaten');
+        return await request.execute('timhosobenhnhanquaten');
     }
     catch(err) {
 

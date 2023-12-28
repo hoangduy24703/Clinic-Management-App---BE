@@ -1,5 +1,5 @@
 const sql = require ('mssql');
-const { generateID } = require('../generateID');
+const { generateIDHD} = require('../generateID');
 
 async function returnChiTietHoaDon(idhoadon)     //DA LAM
 {
@@ -37,6 +37,8 @@ async function returnHoaDonNgay(date)
     const request = new sql.Request()
     request.input('NGAY', sql.Char, date)
     const listHoaDon = await request.execute(`SP_XEMDANHSACHHOADONTHEONGAY`)
+
+    console.log(listHoaDon)
     return listHoaDon
 }
 module.exports={returnChiTietHoaDon, 

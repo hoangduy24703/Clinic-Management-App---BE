@@ -180,7 +180,7 @@ async function getBDT(req,res) {
 // }
 
 async function addBDT(req,res){
-    let { BENHNHAN,
+    let { MABENHNHAN,
         MOTA,
         GHICHU,
         NGAY,
@@ -193,7 +193,8 @@ async function addBDT(req,res){
     let request = new sql.Request()
     var IDBUOIDIEUTRI = await generateID ('BDT')
     
-    request.input('MABENHNHAN', BENHNHAN)
+    console.log( IDBUOIDIEUTRI, MABENHNHAN, MOTA, GHICHU, NGAY, KHAMCHINH, TROKHAM, KEHOACH)
+    request.input('MABENHNHAN', MABENHNHAN)
     .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
     .input('MOTA',sql.NVarChar, MOTA)
     .input('GHICHU', sql.NVarChar, GHICHU)
@@ -208,7 +209,7 @@ async function addBDT(req,res){
             console.log(err)
         }
     )
-    console.log(result.returnValue)
+    // console.log(buoidieutri)
     let isSuccess = true
     if (result.returnValue ==0)
     {
@@ -227,22 +228,25 @@ async function addBDT(req,res){
                     console.log(err)
                 }
             )
-            // console.log(temp)
+            
+            // console.log("xong chi tiet")
             if (temp == true)
             {
             //     let request3 = new sql.Request()
                 let rangdt = buoidieutri[chitiet].rangdt
                 for (let chitietrang in rangdt)
                 {
-                    let temp2 = await model.returnAddChiTietDT(buoidieutri[chitiet].MADIEUTRI,
+                    let temp2 = await model.returnRangDT(buoidieutri[chitiet].MADIEUTRI,
                                                                 IDBUOIDIEUTRI,
-                                                                rangdt[chitiet].TENRANG,
-                                                                rangdt[chitiet].MATDIEUTRI)
+                                                                rangdt[chitietrang].TENRANG,
+                                                                rangdt[chitietrang].MATDIEUTRI)
             //         request3.input('MADIEUTRI', rangdt[chitietrang].MADIEUTRI)
             //         .input('IDBUOIDIEUTRI', rangdt[chitietrang].IDBUOIDIEUTRI)
             //         .input('TENRANG',sql.NChar, rangdt[chitiet].TENRANG)
             //         .input('MATDIEUTRI', rangdt[chitiet].MATDIEUTRI)
             //         let temp2 = await request3.execute('THEMRANGDT')
+                    // console.log("xong rang")
+                    // console.log(temp2)
                     if (temp2 == false)
                     {
                         isSuccess = false

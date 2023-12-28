@@ -23,9 +23,9 @@ async function generateID(kitudau)
     console.log()
     result = await queryString ("IDBUOIDIEUTRI", "BUOIDIEUTRI")
     temp = result.IDBUOIDIEUTRI
-    console.log(temp)
+    // console.log(temp)
    }
-   else if (kitudau =='ĐTBDT')//chờ Hòa
+   else if (kitudau =='ĐTBDT')//done
    {
     result = await queryString ("IDDONTHUOC", "DONTHUOC")
     temp = result.IDDONTHUOC

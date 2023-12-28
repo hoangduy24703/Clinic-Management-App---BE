@@ -17,11 +17,20 @@ async function returnLichLamViec(ID_NHASI, NGAY_A, NGAY_B) {
 async function returnThemLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM) {
     try {
         const request = new sql.Request();
+        // console.log(typeof NGAY)
+        // NGAY = NGAY.substring(0,10)
+        // console.log(NGAY)
+        let date = new Date(NGAY)
+        // console.log(date)
+        let temp = date.setDate(date.getDate() + 1);
+        temp = new Date(temp)
+        // console.log(temp.toISOString())
         request.input('ID_NHANVIEN', sql.Char, ID_NHANVIEN );
-        request.input('NGAY', sql.Date, NGAY);
+        request.input('NGAY', sql.Date, temp);
         request.input('ID_CALAM', sql.Char, ID_CALAM )
+        // console.log("co hcyaj")
         const isSuccess= await request.execute('SP_THEM_LICH_LAM_VIEC');
-        console.log(isSuccess.returnValue)
+        console.log(isSuccess)
         return isSuccess.returnValue;
     }
     catch (error) {
