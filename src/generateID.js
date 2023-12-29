@@ -61,12 +61,14 @@ async function generateIDHD() //done
 {
     const date = new Date().toJSON().slice(0, 10);
     
-    let queryString = `SELECT TOP 1 IDHOADON FROM HOADON WHERE NGAYGIAODICH= '${date}'`
+    let queryString = `SELECT TOP 1 IDHOADON FROM HOADON WHERE NGAYGIAODICH= '${date}' ORDER BY IDHOADON DESC`
     console.log(queryString)
     
     const result = await sql.query(queryString)
     let temp = result.recordset[0].IDHOADON
     // temp=null
+    console.log(result.recordset[0])
+    console.log(temp)
     if (temp==null)
     {
         temp='00001'
