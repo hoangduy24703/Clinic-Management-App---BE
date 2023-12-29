@@ -21,8 +21,7 @@ async function returnHoaDon(id)                     //DA LAM
 async function returnAddHoaDon (loaithanhtoan, ghichuhoadon, ngaygiaodich, idbenhnhan, idbuoidieutri)
 {
     const request = new sql.Request()
-    var idhoadon = await generateIDHD()
-    console.log(idhoadon)
+    var idhoadon = await generateIDHD(ngaygiaodich)
     request.input('IDHOADON', idhoadon)
     .input('LOAITHANHTOAN', loaithanhtoan)
     .input('GHICHUHOADON', ghichuhoadon)

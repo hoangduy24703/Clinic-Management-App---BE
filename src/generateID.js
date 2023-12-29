@@ -57,10 +57,10 @@ async function generateID(kitudau)
     return kitudau + temp.toString()
 
 }
-async function generateIDHD() //done
+async function generateIDHD(date) //done
 {
-    const date = new Date().toJSON().slice(0, 10);
-    
+    // const date = new Date().toJSON().slice(0, 10);
+    console.log(date);
     let queryString = `SELECT TOP 1 IDHOADON FROM HOADON WHERE NGAYGIAODICH= '${date}' ORDER BY IDHOADON DESC`
     console.log(queryString)
     
