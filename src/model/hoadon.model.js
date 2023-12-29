@@ -22,6 +22,7 @@ async function returnAddHoaDon (loaithanhtoan, ghichuhoadon, ngaygiaodich, idben
 {
     const request = new sql.Request()
     var idhoadon = await generateIDHD()
+    console.log(idhoadon)
     request.input('IDHOADON', idhoadon)
     .input('LOAITHANHTOAN', loaithanhtoan)
     .input('GHICHUHOADON', ghichuhoadon)
@@ -29,6 +30,7 @@ async function returnAddHoaDon (loaithanhtoan, ghichuhoadon, ngaygiaodich, idben
     .input('IDBENHNHAN', idbenhnhan)
     .input('IDBUOIDIEUTRI', idbuoidieutri)
     const isSuccess = await request.execute(`SP_THEMHOADON`)
+    console.log(isSuccess)
     return isSuccess.returnValue
 }
 
