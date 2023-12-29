@@ -113,6 +113,7 @@ async function getKeHoach(req,res){
 async function getBDT(req,res) {
     let id = req.params.id
     let request = new sql.Request()
+    console.log(id)
     request.input('IDBUOIDIEUTRI', sql.Char,id )
     let result = await request.execute('XEMCHITIETBDT')
     .catch(
@@ -143,8 +144,8 @@ async function getBDT(req,res) {
         }
         chitiet[ldt].RANGDIEUTRI = rangdieutri
     }
-    //console.log(result.recordsets[0])
-    //console.log(result.recordsets[1])
+    console.log(result)
+    // console.log(result.recordsets[1])
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
