@@ -193,6 +193,13 @@ async function addBDT(req,res){
     let request = new sql.Request()
     var IDBUOIDIEUTRI = await generateID ('BDT')
     
+    if (TROKHAM == '') {
+        TROKHAM = null
+    }
+    if (KEHOACH == '')  {
+        KEHOACH = null
+    }
+
     console.log( IDBUOIDIEUTRI, MABENHNHAN, MOTA, GHICHU, NGAY, KHAMCHINH, TROKHAM, KEHOACH)
     request.input('MABENHNHAN', MABENHNHAN)
     .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
@@ -209,7 +216,8 @@ async function addBDT(req,res){
             console.log(err)
         }
     )
-    console.log(buoidieutri)
+    // console.log(buoidieutri)
+    // console.log(result)
     let isSuccess = true
     if (result.returnValue ==0)
     {
@@ -230,6 +238,7 @@ async function addBDT(req,res){
             )
             
             console.log("xong chi tiet")
+            console.log(temp)
             if (temp == true)
             {
             //     let request3 = new sql.Request()
@@ -257,6 +266,7 @@ async function addBDT(req,res){
             }
             else 
             {
+                console.log("false")
                 isSuccess = false
                 break
             }
