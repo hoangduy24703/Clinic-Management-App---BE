@@ -209,7 +209,7 @@ async function addBDT(req,res){
             console.log(err)
         }
     )
-    // console.log(buoidieutri)
+    console.log(buoidieutri)
     let isSuccess = true
     if (result.returnValue ==0)
     {
@@ -229,7 +229,7 @@ async function addBDT(req,res){
                 }
             )
             
-            // console.log("xong chi tiet")
+            console.log("xong chi tiet")
             if (temp == true)
             {
             //     let request3 = new sql.Request()
@@ -245,8 +245,8 @@ async function addBDT(req,res){
             //         .input('TENRANG',sql.NChar, rangdt[chitiet].TENRANG)
             //         .input('MATDIEUTRI', rangdt[chitiet].MATDIEUTRI)
             //         let temp2 = await request3.execute('THEMRANGDT')
-                    // console.log("xong rang")
-                    // console.log(temp2)
+                    console.log("xong rang")
+                    console.log(temp2)
                     if (temp2 == false)
                     {
                         isSuccess = false
@@ -289,16 +289,16 @@ async function addKeHoach(req,res){
         TRANGTHAI,
         GHICHUKHDT,
         BENHNHAN,
-        BSPHUTRACH} = req.body
+        BSPHUTRACH
+    } = req.body
     
     let request = new sql.Request()
     var IDDIEUTRI = await generateID('KH')
-    request.input('IDBUOIDIEUTRI', sql.Char,id )
-    .input('IDDIEUTRI',sql.Char, IDDIEUTRI)
+    console.log(IDDIEUTRI, MOTAKHDT, TRANGTHAI, GHICHUKHDT, BENHNHAN, BSPHUTRACH)
+    request.input('IDDIEUTRI',sql.Char, IDDIEUTRI)
     .input('MOTAKHDT', sql.NVarChar, MOTAKHDT)
     .input('TRANGTHAI', sql.NChar, TRANGTHAI)
     .input('GHICHUKHDT', sql.NVarChar, GHICHUKHDT)
-    .input('TONGGIA', sql.Float, TONGGIA)
     .input('BENHNHAN', sql.Char, BENHNHAN)
     .input('BSPHUTRACH', sql.Char, BSPHUTRACH)
     let result = await request.execute('THEMKEHOACH')
