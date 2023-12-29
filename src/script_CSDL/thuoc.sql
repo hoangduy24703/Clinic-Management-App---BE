@@ -29,7 +29,7 @@ BEGIN TRAN
 			ROLLBACK TRAN
 			RETURN 1
 		END
-		select cast(@giathuoc as char(4))
+		
 		IF (@GIATHUOC <0)
 		BEGIN
 			print 'loi'
