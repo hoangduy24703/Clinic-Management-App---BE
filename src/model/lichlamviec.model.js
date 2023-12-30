@@ -22,7 +22,7 @@ async function returnThemLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM) {
         // console.log(NGAY)
         let date = new Date(NGAY)
         // console.log(date)
-        let temp = date.setDate(date.getDate() + 1);
+        let temp = date.setDate(date.getDate());
         temp = new Date(temp)
         // console.log(temp.toISOString())
         request.input('ID_NHANVIEN', sql.Char, ID_NHANVIEN );
