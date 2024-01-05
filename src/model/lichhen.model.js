@@ -87,4 +87,23 @@ async function returnXoaLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN) {
         console.log(error);
     }
 }
-module.exports={returnLichHenIDBN, returnLichHenIDNS, returnLichHenIDPK, returnLichHenDayToDay, returnThemLichHen, returnXoaLichHen};
+
+async function returnCapNhatLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW ) {
+    try {
+        const request = new sql.Request();
+        console.log(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW );
+        request.input('NGAYHEN', sql.Date, NGAYHEN);
+        request.input('THOIGIANHEN', sql.Char, THOIGIANHEN);
+        request.input('BACSI', sql.Char, BACSI );
+        request.input('BENHNHAN', sql.Char, BENHNHAN )
+        request.input('TINHTRANG', sql.NChar, TINHTRANG_NEW );
+        const isSuccess= await request.execute('SP_CAP_NHAT_TT_LICH_HEN');
+        console.log(isSuccess)
+        
+        return isSuccess.returnValue;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+module.exports={returnLichHenIDBN, returnLichHenIDNS, returnLichHenIDPK, returnLichHenDayToDay, returnThemLichHen, returnXoaLichHen, returnCapNhatLichHen};
