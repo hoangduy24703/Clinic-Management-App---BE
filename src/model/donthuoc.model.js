@@ -149,6 +149,15 @@ async function returnLoaiThuoc(tenthuoc)
     return result
 }
 
+async function returnXoaChiTietDonThuoc(iddonthuoc, idthuoc)
+{
+    const request = new sql.Request()
+    request .input('IDDONTHUOC', sql.Char, iddonthuoc)
+    .input('IDTHUOC', sql.Char, idthuoc)
+    const result = await request.execute('SP_XOACHITIETDONTHUOC')
+    console.log(result.returnValue)
+    return result
+}
 module.exports={returnAllDonThuoc,
     returnChiTietDonThuoc,
     returnDonThuoc,
