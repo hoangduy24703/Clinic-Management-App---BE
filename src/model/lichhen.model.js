@@ -52,7 +52,7 @@ async function returnLichHenDayToDay(NGAY_A, NGAY_B) {
 async function returnThemLichHen(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM) {
     try {
         const request = new sql.Request();
-        console.log(THOIGIANHEN)
+        console.log(NGAYHEN, THOIGIANHEN, TINHTRANG, PHONG, GHICHU, BACSI, BENHNHAN, TROKHAM);
         request.input('NGAYHEN', sql.Date, NGAYHEN);
         request.input('THOIGIANHEN', sql.Char, THOIGIANHEN);
         request.input('TINHTRANG', sql.NChar, TINHTRANG );
