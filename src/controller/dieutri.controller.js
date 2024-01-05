@@ -34,7 +34,6 @@ async function getListBDTbyID(req,res){
     })
 }
 
-
 async function getListBDTbyDate(req,res){
     let dateA = req.params.dateA
     let dateB = req.params.dateB
@@ -363,6 +362,60 @@ async function getListKHbyID(req,res){
     })
 }
 
+async function addChitietDT(req,res){
+    let { MADIEUTRI,
+        IDBUOIDIEUTRI} = req.body
+    let request = new sql.Request()
+    request.input('MADIEUTRI', MADIEUTRI)
+    .input('IDBUOIDIEUTRI', IDBUOIDIEUTRI)
+    let result = await request.execute('THEMCHITIETDT')
+    .catch(
+        err=>{
+            console.log(err)
+            return res.json({
+                isSuccess: false,
+                message: 'request Failure',
+                status: res.statusCode,
+                data: ''
+            })
+        }
+    )
+    console.log(result)
+    return res.json({
+        isSuccess: true,
+        message: 'request Successfully',
+        status: res.statusCode,
+        data: ''
+    })
+}
+
+async function deleteBDT(req,res){
+    let {IDBUOIDIEUTRI} = req.body
+    let request = new sql.Request()
+    request.input('IDBUOIDIEUTRI', sql.Char, id);
+    
+    let result = await request.execute('XOABUOIDT')
+    .catch(
+        err=>{
+            console.log(err)
+            return res.json({
+                isSuccess: false,
+                message: 'request Failure',
+                status: res.statusCode,
+                data: ''
+            })
+        }
+    )
+    console.log(result)
+    return res.json({
+        isSuccess: true,
+        message: 'request Successfully',
+        status: res.statusCode,
+        data: ''
+    })
+}
+
+
 module.exports = {
     getListBDTbyID,
     getListBDTbyDate,
@@ -372,4 +425,6 @@ module.exports = {
     addBDT,
     addKeHoach,
     getListKHbyID,
+    addChitietDT,
+    deleteBDT,
 }

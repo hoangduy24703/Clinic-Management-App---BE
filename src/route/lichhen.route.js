@@ -8,5 +8,6 @@ route.post('/lichhen/searchLHPK', controller.postLichHenIDPK);
 route.post('/lichhen/searchD2D', controller.postLichHenDayToDay);
 route.post('/lichhen/createLH', controller.postThemLichHen);
 route.post('/lichhen/deleteLH', controller.postXoaLichHen);
+route.post('/lichhen/updateLH', controller.postCapNhatLichHen);
 
 module.exports = route;

@@ -1,5 +1,4 @@
 const sql = require ('mssql');
-const { generateID } = require('../generateID');
 
 async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
     try {
@@ -15,13 +14,12 @@ async function returnChiTietHoSoBenhNhan(IDBENHNHAN) {
 
 async function returnCapNhatHoSoBenhNhan(data) {
     try {
-        var IDBENHNHAN = await generateID('BN') 
-        const request = new Request()
-        request.input('IDBENHNHAN', sql.Char, IDBENHNHAN);
+        const request = new sql.Request();
+        request.input('IDBENHNHAN', sql.Char, data.IDBENHNHAN);
         request.input('TENBN', sql.Char, data.TENBN);
-        request.input('NAMSINH', sql.Date, data.DATE);
+        request.input('IDPHONGKHAM', sql.Char, data.IDPHONGKHAM);
+        request.input('NAMSINH', sql.Char, data.NAMSINH);
         request.input('GIOITINH', sql.NVarChar, data.GIOITINH);
-        request.input('TUOI', sql.Int, data.TUOI);
         request.input('SDT', sql.Char, data.SDT);
         request.input('EMAIL', sql.VarChar, data.EMAIL);
         request.input('DIACHI', sql.NVarChar, data.DIACHI);
@@ -29,8 +27,7 @@ async function returnCapNhatHoSoBenhNhan(data) {
         request.input('BACSIMD', sql.Char, data.BACSIMD);
         request.input('TTTQ', sql.NVarChar, data.TTTQ);
         request.input('TTDU', sql.NVarChar, data.TTDU);
-        request.input('THUOCCHONGCD',     sql.NVarChar, data.THUOCCHONGCD);
-        request.input('DATHANHTOAN', sql.Float, data.DATHANHTOAN);
+        request.input('THUOCCHONGCD', sql.NVarChar, data.THUOCCHONGCD);
         return await request.execute(`capnhathosobenhnhan`);
     } catch (error) {
         console.log(error);
@@ -72,4 +69,23 @@ async function returnDanhSachBenhNhan(TENBN) {
     }
 }
 
-module.exports={returnChiTietHoSoBenhNhan, returnCapNhatHoSoBenhNhan, returnDangKy, returnDangNhap, returnDanhSachBenhNhan}
+async function returnThemBenhNhan(IDBENHNHAN, TENBN, IDPHONGKHAM, NAMSINH, GIOITINH, SDT, EMAIL, DIACHI, MATKHAU, BACSIMD, TTTQ, TTDU, THUOCCHONGCD) {
+    const request = new sql.Request();
+    console.log(IDBENHNHAN, TENBN, IDPHONGKHAM, NAMSINH, GIOITINH, SDT, EMAIL, DIACHI, MATKHAU, BACSIMD, TTTQ, TTDU, THUOCCHONGCD);
+    request.input('IDBENHNHAN', sql.Char, IDBENHNHAN)
+            .input('TENBN', sql.NVarChar, TENBN)
+            .input('IDPHONGKHAM', sql.Char, IDPHONGKHAM)
+            .input('NAMSINH', sql.Char, NAMSINH)
+            .input('GIOITINH', sql.NVarChar, GIOITINH)
+            .input('SDT', sql.Char, SDT)
+            .input('EMAIL', sql.VarChar, EMAIL)
+            .input('DIACHI', sql.NVarChar, DIACHI)
+            .input('MATKHAU', sql.VarChar, MATKHAU)
+            .input('BACSIMD', sql.Char, BACSIMD)
+            .input('TTTQ', sql.NVarChar, TTTQ)
+            .input('TTDU', sql.NVarChar, TTDU)
+            .input('THUOCCHONGCD', sql.NVarChar, THUOCCHONGCD)
+    return await request.execute('themhosobenhnhan');
+}
+
+module.exports={returnChiTietHoSoBenhNhan, returnCapNhatHoSoBenhNhan, returnDangKy, returnDangNhap, returnDanhSachBenhNhan, returnThemBenhNhan}

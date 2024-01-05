@@ -158,4 +158,37 @@ async function postXoaLichHen(req,res){
     }
 }
 
-module.exports = {postLichHenIDBN, postLichHenIDNS, postLichHenIDPK, postLichHenDayToDay, postThemLichHen, postXoaLichHen}
+async function postCapNhatLichHen(req,res){
+    try {
+        const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW } = req.body;
+
+        let result = await database.returnCapNhatLichHen( NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW);
+        console.log(result);
+        if (result ==0){
+            return res.json({
+                isSuccess: true,
+                message: 'Request Successfully',
+                status: res.statusCode,
+                data: result
+            })
+        }
+        else 
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: result
+        })
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            isSuccess: false,
+            message: 'Request Failed',
+            status: res.statusCode,
+            data: ''
+        })
+    }
+}
+
+module.exports = {postLichHenIDBN, postLichHenIDNS, postLichHenIDPK, postLichHenDayToDay, postThemLichHen, postXoaLichHen, postCapNhatLichHen}
