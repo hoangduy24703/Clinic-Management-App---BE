@@ -7,6 +7,7 @@ route.post('/dangnhap', controller.getDangNhap);
 
 route.post('/hosobenhnhan/capnhat', controller.postCapNhatHoSoBenhNhan);
 route.post('/hosobenhnhan/timkiem', controller.postDanhSachBenhNhan);
-route.post('/dangky', controller.postDangKy);
+// route.post('/dangky', controller.postDangKy); // không dùng
+route.post('/hosobenhnhan/thembenhnhan', controller.postThemBenhNhan);
 
 module.exports = route;
