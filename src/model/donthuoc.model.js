@@ -33,6 +33,8 @@ async function returnChiTietDonThuoc(id)     //DA LAM
     request.input('IDDONTHUOC', id)
     
     const chitietdonthuoc = await request.execute(`SP_XEMCHITIETDONTHUOC`)
+    console.log(chitietdonthuoc.recordsets[0])
+    console.log(chitietdonthuoc.recordsets[1])
     return chitietdonthuoc
 }
 
@@ -154,9 +156,14 @@ async function returnXoaChiTietDonThuoc(iddonthuoc, idthuoc)
     const request = new sql.Request()
     request .input('IDDONTHUOC', sql.Char, iddonthuoc)
     .input('IDTHUOC', sql.Char, idthuoc)
-    const result = await request.execute('SP_XOACHITIETDONTHUOC')
-    console.log(result.returnValue)
-    return result
+    const isSuccess = await request.execute(`SP_XOA1CHITIETDONTHUOC`)
+    if (isSuccess.returnValue != 1 && isSuccess.returnValue != 2)
+    {
+        
+        return true
+    }
+    console.log(isSuccess.returnValue)
+    return false
 }
 module.exports={returnAllDonThuoc,
     returnChiTietDonThuoc,
@@ -166,5 +173,6 @@ module.exports={returnAllDonThuoc,
     returnAddDonThuoc,
     returnAddChiTietDonThuoc,
     returnDeleteDonThuoc,
-    returnLoaiThuoc
+    returnLoaiThuoc, 
+    returnXoaChiTietDonThuoc
 }

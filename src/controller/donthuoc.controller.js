@@ -73,7 +73,8 @@ async function getChiTietDonThuoc(req,res){          //da check
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            chitietdonthuoc: result.recordset
+            chitietdonthuoc: result.recordsets[1],
+            soluong: result.recordsets[0]
         }
     })
 }
@@ -247,9 +248,9 @@ async function deleteDonThuoc(req,res){
 }
 
 async function addChiTietDonThuoc(req,res){
-    // let id = req.params.id
-
-    let result = await database.returnAddChiTietDonThuoc()
+    let {idthuoc,iddonthuoc, soluong}  = req.body
+    console.log("co chay")
+    let result = await database.returnAddChiTietDonThuoc(idthuoc, iddonthuoc, soluong)
     .catch(
         err=>{
             console.log(err)
@@ -261,13 +262,22 @@ async function addChiTietDonThuoc(req,res){
             })
         }
     )
+    if (result == false)
+    {
+        return res.json({
+            isSuccess: false,
+            message: 'request successfully',
+            status: res.statusCode,
+            data: ''
+        })
+    }
     // console.log(result)
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
         status: res.statusCode,
         data: {
-            listDonThuoc: result.recordset
+            
         }
     })
 }

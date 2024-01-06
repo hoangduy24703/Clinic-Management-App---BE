@@ -72,7 +72,7 @@ async function generateIDHD(date) //done
     if (temp==null)
     {
         temp='00001'
-        const datetemp = new Date()
+        const datetemp = date
       
         return 'HĐ'+ datetemp.getFullYear().toString() +datetemp.getMonth().toString() +datetemp.getDate().toString()+temp
     }
