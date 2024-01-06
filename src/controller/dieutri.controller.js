@@ -392,7 +392,7 @@ async function addChitietDT(req,res){
 async function deleteBDT(req,res){
     let {IDBUOIDIEUTRI} = req.body
     let request = new sql.Request()
-    request.input('IDBUOIDIEUTRI', sql.Char, id);
+    request.input('IDBUOIDIEUTRI', sql.Char, IDBUOIDIEUTRI);
     
     let result = await request.execute('XOABUOIDT')
     .catch(

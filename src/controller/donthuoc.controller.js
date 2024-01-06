@@ -298,6 +298,42 @@ async function getLoaiThuoc(req,res)
         }
     })
 }
+async function xoaChiTietDonThuoc(req, res)
+{
+    let {iddonthuoc, idthuoc} = req.body
+    let result = await database.returnXoaChiTietDonThuoc(iddonthuoc, idthuoc)
+    .catch(
+        err=>{
+            console.log(err)
+            return res.json({
+                isSuccess: false,
+                message: 'request Failure',
+                status: res.statusCode,
+                data: ''
+            })
+        }
+    )
+    // console.log(result)
+    if (result == true)
+        return res.json({
+            isSuccess: true,
+            message: 'request Successfully',
+            status: res.statusCode,
+            data: {
+                
+            }
+        })
+    
+    return res.json({
+        isSuccess: false,
+        message: 'request fail',
+        status: res.statusCode,
+        data: {
+            
+        }
+    })
+
+}
 module.exports={getAllDonThuoc, 
     getDonThuoc, 
     addLoaiThuoc, 
@@ -309,5 +345,6 @@ module.exports={getAllDonThuoc,
     addChiTietDonThuoc,
     getLoaiThuoc,
     getDonThuocNgay,
-    getLoaiThuoc
+    getLoaiThuoc,
+    xoaChiTietDonThuoc
 }
