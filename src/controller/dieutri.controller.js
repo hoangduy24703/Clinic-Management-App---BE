@@ -23,7 +23,7 @@ async function getListBDTbyID(req,res){
             })
         }
     )
-    console.log(result)
+    // console.log(result)
     return res.json({
         isSuccess: true,
         message: 'request Successfully',
