@@ -65,6 +65,7 @@ async function getChiTietHoaDon(req,res){
             })
         }
     )
+    console.log(result)
     // console.log(result)
     return res.json({
         isSuccess: true,
