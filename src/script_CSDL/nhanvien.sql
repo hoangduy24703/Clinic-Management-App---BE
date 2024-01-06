@@ -269,3 +269,4 @@ EXEC themnhanvien 'NV000300', 'NGO QUOC QUY', '2003-08-23', 'NAM', '0828770239',
 --EXEC SP_THEM_LICH_LAM_VIEC 'NS000003', '2025-01-09', 'C2'
 --delete from LICHHEN
 --select * from lichhen where BENHNHAN = 'BN100001'
+--select * from DONTHUOC

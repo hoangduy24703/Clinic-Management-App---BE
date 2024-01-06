@@ -15,6 +15,8 @@ route.post('/donthuoc/addDonThuoc', controller.addDonThuoc)
 route.post('/donthuoc/deleteDonThuoc/:id', controller.deleteDonThuoc)
 route.post('/donthuoc/addChiTietDonThuoc', controller.addChiTietDonThuoc)
 
+route.post('/donthuoc/deleteChiTietDonThuoc', controller.xoaChiTietDonThuoc)
+
 route.post('/donthuoc/getLoaiThuoc', controller.getLoaiThuoc)
 
 //Xem danh sach thuoc
