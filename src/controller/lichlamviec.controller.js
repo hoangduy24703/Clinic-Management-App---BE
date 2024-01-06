@@ -92,7 +92,7 @@ async function postXoaLichLamViec(req,res){
 async function postCapNhatLichLamViec(req,res){
     try {
         const { ID_NHANVIEN, NGAY, ID_CALAM, NGAY_NEW, ID_CALAM_NEW} = req.body;
-        console.log(ID_NHANVIEN, NGAY, ID_CALAM);
+        console.log(ID_NHANVIEN, NGAY, ID_CALAM, NGAY_NEW, ID_CALAM_NEW);
         let result = await database.returnCapNhatLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM, NGAY_NEW, ID_CALAM_NEW);
         if (result ==0){
             return res.json({

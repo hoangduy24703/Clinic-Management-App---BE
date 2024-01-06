@@ -161,6 +161,7 @@ async function postXoaLichHen(req,res){
 async function postCapNhatLichHen(req,res){
     try {
         const { NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW } = req.body;
+        console.log(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW);
 
         let result = await database.returnCapNhatLichHen( NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHTRANG_NEW);
         console.log(result);

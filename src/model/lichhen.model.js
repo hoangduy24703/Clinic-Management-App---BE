@@ -96,7 +96,7 @@ async function returnCapNhatLichHen(NGAYHEN, THOIGIANHEN, BACSI, BENHNHAN, TINHT
         request.input('THOIGIANHEN', sql.Char, THOIGIANHEN);
         request.input('BACSI', sql.Char, BACSI );
         request.input('BENHNHAN', sql.Char, BENHNHAN )
-        request.input('TINHTRANG', sql.NChar, TINHTRANG_NEW );
+        request.input('TINHTRANG_NEW', sql.NChar, TINHTRANG_NEW );
         const isSuccess= await request.execute('SP_CAP_NHAT_TT_LICH_HEN');
         console.log(isSuccess)
         

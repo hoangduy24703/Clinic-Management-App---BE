@@ -74,7 +74,7 @@ async function returnCapNhatLichLamViec(ID_NHANVIEN, NGAY, ID_CALAM, NGAY_NEW, I
         request.input('NGAY', sql.Date, temp);
         request.input('ID_CALAM', sql.Char, ID_CALAM )
         request.input('NGAY_NEW', sql.Date, temp_new);
-        request.input('ID_CALAM_NEW', sql.Char, ID_CALAM )
+        request.input('ID_CALAM_NEW', sql.Char, ID_CALAM_NEW )
         // console.log("co hcyaj")
         const isSuccess= await request.execute('SP_CAP_NHAT_LICH_LAM_VIEC');
         console.log(isSuccess)
