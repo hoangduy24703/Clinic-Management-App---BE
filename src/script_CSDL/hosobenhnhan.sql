@@ -40,7 +40,7 @@ BEGIN
 	END CATCH
 END
 GO
-EXEC xemchitiethosobenhnhan 'BN100001'
+--EXEC xemchitiethosobenhnhan 'BN100001'
 GO
 CREATE OR ALTER PROC timhosobenhnhanquaten @TEN NVARCHAR(50)
 AS
@@ -64,7 +64,7 @@ BEGIN
 	END CATCH
 END
 GO
-EXEC timhosobenhnhanquaten 'toan ti phu'
+--EXEC timhosobenhnhanquaten 'toan ti phu'
 GO
 --CẬP NHẬT HỒ SƠ BỆNH NHÂN
 CREATE OR ALTER PROC capnhathosobenhnhan 
@@ -139,7 +139,7 @@ BEGIN CATCH
 	RETURN; 
 END CATCH
 
-exec capnhathosobenhnhan 'BN010000', 'Michael Martin', 'P01', '1950-04-04', 'NAM', '0123456789', 'EXAMPLE@EMAIL.COM', 'KIEN GIANG VIET NAM', 'ABC12345', 'NS000003', '', '', ''
+--exec capnhathosobenhnhan 'BN010000', 'Michael Martin', 'P01', '1950-04-04', 'NAM', '0123456789', 'EXAMPLE@EMAIL.COM', 'KIEN GIANG VIET NAM', 'ABC12345', 'NS000003', '', '', ''
 
 --THÊM BỆNH NHÂN
 GO
@@ -230,7 +230,7 @@ BEGIN
 	END CATCH
 END
 
-EXEC themhosobenhnhan 'BN100002', 'Nguyen Van A', 'P01', '2003-08-23', 'NAM', '0822910008', 'HELLO@EMAIL.COM', 'HO CHI MINH, VIET NAM','ABC12345', null, null, null, null
-delete from HOSOBENHNHAN where IDBENHNHAN = 'BN100002'
+--EXEC themhosobenhnhan 'BN100002', 'Nguyen Van A', 'P01', '2003-08-23', 'NAM', '0822910008', 'HELLO@EMAIL.COM', 'HO CHI MINH, VIET NAM','ABC12345', null, null, null, null
+--delete from HOSOBENHNHAN where IDBENHNHAN = 'BN100002'
 --SELECT * FROM HOSOBENHNHAN WHERE IDBENHNHAN ='BN100002'
 --SELECT * FROM HOSOBENHNHAN WHERE TENBN = 'Nguyen Van A'
